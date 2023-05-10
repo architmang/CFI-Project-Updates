@@ -36,9 +36,9 @@ Apart from the visual features, we can also incorporate Acoustic signals obtaine
 
 ### Assigned Tasks
 
-1. Read up Camera Calibration from “Multiple View Geometry in Computer Vision, Second Edition”
+1. Read up Camera Calibration from [Multiple View Geometry in Computer Vision, Second Edition](http://www.r-5.org/files/books/computers/algo-list/image-processing/vision/Richard_Hartley_Andrew_Zisserman-Multiple_View_Geometry_in_Computer_Vision-EN.pdf)
 
-2. The current pipeline captures only image frames periodically and performs the camera calibration. Develop a C++ based code for capturing speech inputs with our Azure Kinect camera
+2. The current pipeline captures only image frames periodically and performs the camera calibration. Develop a C++ based code for capturing speech inputs with our [Azure Kinect camera](https://azure.microsoft.com/en-us/products/kinect-dk#layout-container-uid9b7e)
 
 ### My Ideas
 
