@@ -19,7 +19,7 @@ Hi! This is Archit Mangrulkar. This repository contains codes developed by me an
 
 ## Monday, May 8th
 
-This was my first meeting of the CFI project with Shihao, Vijayi. The project involves data collection & calibration to produce 3D MoCap in the wild. We discussed the project objectives, environmental setup & future prospects. The project involves data capture in the wild, data processing and multimodality. There will be two test runs- on May 30th, June 11th and a final run probably in August.
+This was my first meeting of the CFI project with Shihao, Vijay. The project involves data collection & calibration to produce 3D MoCap in the wild. We discussed the project objectives, environmental setup & future prospects. The project involves data capture in the wild, data processing and multimodality. There will be two test runs- on May 30th, June 11th and a final run probably in August.
 
 ### Data Collection Stage:
 There will be 6 stationery Azure Kinect cameras, two non-stationary GoPros and eye trackers for recording the subjects. The cameras capture frames and write them to disk simaltaneously
