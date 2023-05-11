@@ -1,6 +1,25 @@
 # CFI-Project-Updates
 Hi! This is Archit Mangrulkar. This repository contains codes developed by me and my daily task updates for the CFI project
 
+## Monday, May 11th
+
+1. Shihao came over and explained the python client and the azure kinect c++ server codes. 
+
+2. With Shihao's help we established a three camera setup and captured a small dataset of humans in the wild. 
+
+<p align="center">
+    <img width="800" height="400" src="images/captured_data.jpg" alt="Load Image">
+</p>
+
+
+### Assigned Tasks
+
+1. Remove the blurred images in our dataset
+
+2. Integrate the speech signal capture pipeline with our image capture pipeline by following the [Azure Speech SDK tutorial](https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-sdk) 
+
+3. Perform object detection using [OpenCV](https://opencv.org/) and pose estimation using [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose), [MMpose](https://github.com/open-mmlab/mmpose)
+
 ## Monday, May 10th
 
 1. Going through the [Azure Speech SDK tutorial](https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-sdk). The tutorial is really helpful. The speech signal capture pipeline would be integrated with our main pipeline in a few days.
