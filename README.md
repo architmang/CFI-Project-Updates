@@ -1,6 +1,35 @@
 # CFI-Project-Updates
 Hi! This is Archit Mangrulkar. This repository contains codes developed by me and my daily task updates for the CFI project
 
+## Monday, May 12th
+
+1. I removed some of the blurred images in our dataset. However the YOLLOv8 models run smoothly on our dataset, therefore removal of all blurred images was not needed. 
+
+2. I worked on the pose estimation module. I used MediaPipe for this purpose however it does perform multi-object pose estimation rather it focuses on one object. Below is one of the results. I'll try to use other MediaPipe models in the meantime.
+
+<p align="center">
+    <img width="800" height="400" src="images/MediaPipe.jpg" alt="Load Image">
+</p>
+
+3. Kinjawl worked on the human detection model using two YOLOv8 models- the largest one with 700ms CPU latency and the smallest and least accurate model with 65.4 ms CPU latency
+
+<p align="center">
+    <img width="800" height="400" src="images/yolov8.jpg" alt="Load Image">
+</p>
+
+4. We had a online meeting with Shihao where he explained us the intrinsic & extrinsic camera calibration codes.  
+### Assigned Tasks
+
+1. Use OpenPose to achieve better pose estomation results
+
+2. Perform 3D pose reconstruction from these 2D poses using depth2color calibration codes
+
+3. Transform the three 3D poses to the same coordinates using extrinsic calibration
+
+4. Perform person tracking over time in this unified 3D view by verifying the extent of overlap between bounding boxes after tranformation of these 3D views
+
+5. Use distortion parameters to get error free results  
+
 ## Monday, May 11th
 
 1. Shihao came over and explained the python client and the azure kinect c++ server codes. 
