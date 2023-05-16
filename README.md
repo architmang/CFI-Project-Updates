@@ -1,6 +1,30 @@
 # CFI-Project-Updates
 Hi! This is Archit Mangrulkar. This repository contains codes developed by me and my daily task updates for the CFI project
 
+## Monday, May 15th 
+
+1. The 2D pose estimation has been completed using OpenPose. It gives better results than MediaPipe as it performs multi-object pose estimation rather than focusing on one object. The latency for saving object pose images and their corresponding json files is 4.05 seconds/frame even after utilizing both the GPUs. Below is the result using OpenPose
+
+<p align="center">
+    <img width="800" height="400" src="images/OpenPose.png" alt="Load Image">
+</p>
+
+2. I tried to perform human pose estimation using [HMR](https://github.com/akanazawa/hmr) however there were a lot of dependency issues when i tried to install and run it in my conda environment, mainly caused by improper installation of another python package opedr.
+
+3. I tried to perform human pose estimation using [SPIN](https://github.com/nkolot/SPIN) however there were docker installation issues. Currrently I am trying to implement its [notebook]()
+
+4. Me and Kinjawl read up on Camera Calibration from [slides shared by Shihao](https://docs.google.com/presentation/d/1j4qaADR2indMa6GZb5gB9bvG9nfOobQjJX-KBa_xq5o/edit#slide=id.gecbdb5d826_0_95) and [Stanford lecture notes](https://web.stanford.edu/class/cs231a/course_notes/01-camera-models.pdf)
+
+5. Currently we are working on code for performing depth-to-color registration for a specific frame for all cameras. I'll update its results soon.
+
+### Future Tasks
+
+1. Transform the three 3D poses to the same coordinates using extrinsic calibration
+
+2. Perform person tracking over time in this unified 3D view by verifying the extent of overlap between bounding boxes after tranformation of these 3D views
+
+3. Use distortion parameters to get error free results
+
 ## Monday, May 12th
 
 1. I removed some of the blurred images in our dataset. However the YOLLOv8 models run smoothly on our dataset, therefore removal of all blurred images was not needed. 
