@@ -1,21 +1,49 @@
 # CFI-Project-Updates
 Hi! This is Archit Mangrulkar. This repository contains codes developed by me and my daily task updates for the CFI project
 
-## Monday, May 15th 
+## Wednesday, May 17th 
 
-1. The 2D pose estimation has been completed using OpenPose. It gives better results than MediaPipe as it performs multi-object pose estimation rather than focusing on one object. The latency for saving object pose images and their corresponding json files is 4.05 seconds/frame even after utilizing both the GPUs. Below is the result using OpenPose
+1. I worked on the code for finding the intrinsic matrices for all kinects using the demo data images. The code for rgb camera matrix calibration is working correctly however OpenCV is not able to detect check board corners in the depth images. I requested Shihao to come to the lab tomorrow so we could collect infrared image data that will help us perform intrinsic camera matrix calibration for the depth camera as well. Sample results for intrinsic matrix for rgb cammera for one of the kinects:
+
+            azure_kinect1_2
+            
+            ret: 1.1692189510474589
+            Camera matrix:
+             [[919.35146135   0.         987.83993318]
+             [  0.         913.10601197 567.97330538]
+             [  0.           0.           1.        ]]
+            Distortion coefficients:
+             [[ 0.05701473  0.04425453  0.00379301  0.01158766 -0.14838415]]
+
+2.  I modified the python otebook provided by you into two seperate modules for depth 2 color registration with and without distortion. Here are the results:
 
 <p align="center">
-    <img width="800" height="400" src="images/OpenPose.png" alt="Load Image">
+    <img width="800" height="400" src="images/depth2color_distorted.png" alt="Load Image">
 </p>
 
-2. I tried to perform human pose estimation using [HMR](https://github.com/akanazawa/hmr) however there were a lot of dependency issues when i tried to install and run it in my conda environment, mainly caused by improper installation of another python package opedr.
+<p align="center">
+    <img width="800" height="400" src="images/depth2color_undistorted.png" alt="Load Image">
+</p>
 
-3. I tried to perform human pose estimation using [SPIN](https://github.com/nkolot/SPIN) however there were docker installation issues. Currrently I am trying to implement its [notebook]()
+### Future Tasks
 
-4. Me and Kinjawl read up on Camera Calibration from [slides shared by Shihao](https://docs.google.com/presentation/d/1j4qaADR2indMa6GZb5gB9bvG9nfOobQjJX-KBa_xq5o/edit#slide=id.gecbdb5d826_0_95) and [Stanford lecture notes](https://web.stanford.edu/class/cs231a/course_notes/01-camera-models.pdf)
+1. Record new data with infrared images as well.
 
-5. Currently we are working on code for performing depth-to-color registration for a specific frame for all cameras. I'll update its results soon.
+2. Transform the three 3D poses to the same coordinates using extrinsic calibration
+
+3. Perform person tracking over time in this unified 3D view by verifying the extent of overlap between bounding boxes after tranformation of these 3D views
+
+## Tuesday, May 16th 
+
+1. After facing a lot of issues with markerless human pose estimation using [HMR](https://github.com/akanazawa/hmr) and [SPIN](https://github.com/nkolot/SPIN), Shihao suggested to leave it for now. However, I came across a new library [EasyMocap](https://github.com/zju3dv/EasyMocap). I am willing to give it a last try.
+
+2. Kinjawl tried performing depth-to-color registration using the camera matrices provided by Shihao but the results were not good as we realised that intrinsic camera matrices depedon the camera and the camera mode which was used to record our data was in 1536P while the one used by Shihao was of 1080P.
+
+<p align="center">
+    <img width="800" height="400" src="images/depth2color_newdata_old_calibration.png" alt="Load Image">
+</p>
+
+3. Currently we are working on finding the intrinsic matrices using the demo data images.
 
 ### Future Tasks
 
@@ -25,7 +53,7 @@ Hi! This is Archit Mangrulkar. This repository contains codes developed by me an
 
 3. Use distortion parameters to get error free results
 
-## Monday, May 12th
+## Friday, May 12th
 
 1. I removed some of the blurred images in our dataset. However the YOLLOv8 models run smoothly on our dataset, therefore removal of all blurred images was not needed. 
 
@@ -54,7 +82,7 @@ Hi! This is Archit Mangrulkar. This repository contains codes developed by me an
 
 5. Use distortion parameters to get error free results  
 
-## Monday, May 11th
+## Thursday, May 11th
 
 1. Shihao came over and explained the python client and the azure kinect c++ server codes. 
 
@@ -73,7 +101,7 @@ Hi! This is Archit Mangrulkar. This repository contains codes developed by me an
 
 3. Perform object detection using [OpenCV](https://opencv.org/) and pose estimation using [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose), [MMpose](https://github.com/open-mmlab/mmpose)
 
-## Monday, May 10th
+## Wednesday, May 10th
 
 1. Going through the [Azure Speech SDK tutorial](https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-sdk). The tutorial is really helpful. The speech signal capture pipeline would be integrated with our main pipeline in a few days.
 
@@ -81,7 +109,7 @@ Hi! This is Archit Mangrulkar. This repository contains codes developed by me an
     <img width="800" height="400" src="images/azure.jpg" alt="Load Image">
 </p>
 
-## Monday, May 9th
+## Tuesday, May 9th
 
 1. I have completed the reading up on the portion of Camera Calibration from [Multiple View Geometry in Computer Vision, Second Edition](http://www.r-5.org/files/books/computers/algo-list/image-processing/vision/Richard_Hartley_Andrew_Zisserman-Multiple_View_Geometry_in_Computer_Vision-EN.pdf)
 
