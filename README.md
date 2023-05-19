@@ -3,6 +3,40 @@ Hi! This is Archit Mangrulkar. This repository contains codes developed by me an
 
 ## Wednesday, May 17th 
 
+1. We captured new data today however we still face the same problem of chessboard identification ith infrared images as well. I & Kinjawl tried several approaches to solve this problem such as increasing contrast, scaling, histogram equalization, gaussian smoothing, dilation, and Canny edge detection however none of them are working. 
+
+<p align="center">
+    <img width="800" height="400" src="images/low_thresh.png" alt="Load Image">
+</p>
+
+It would be better to record the data in a closed room as the infrared images are picking up heat noises which is clearly visible in the below image.
+
+<p align="center">
+    <img width="800" height="400" src="images/best_image_heat_noise.png" alt="Load Image">
+</p>
+
+2. After Shihao went, we even tried to record some more infrared data with the subject (yes, its me :)) being closer to the camera however all the preprocessing steps fail to detect chessboards. 
+
+<p align="center">
+    <img width="800" height="400" src="images/new_data.png" alt="Load Image">
+</p>
+
+After applying some image transforms, you can see that some squares are visible however not all.
+
+<p align="center">
+    <img width="800" height="400" src="images/some_squares_visible.jpg" alt="Load Image">
+</p>
+
+### Future Tasks
+
+1. Transform the three 3D poses to the same coordinates using extrinsic calibration
+
+2. Perform person tracking over time in this unified 3D view by verifying the extent of overlap between bounding boxes after tranformation of these 3D views
+
+3. Once you are done with these, try markerless motion capture using [EasyMoCap](https://github.com/zju3dv/EasyMocap)
+
+## Wednesday, May 17th 
+
 1. I worked on the code for finding the intrinsic matrices for all kinects using the demo data images. The code for rgb camera matrix calibration is working correctly however OpenCV is not able to detect check board corners in the depth images. I requested Shihao to come to the lab tomorrow so we could collect infrared image data that will help us perform intrinsic camera matrix calibration for the depth camera as well. Sample results for intrinsic matrix for rgb cammera for one of the kinects:
 
             azure_kinect1_2
