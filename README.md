@@ -18,13 +18,13 @@ It would be better to record the data in a closed room as the infrared images ar
 2. After Shihao went, we even tried to record some more infrared data with the subject (yes, its me :)) being closer to the camera however all the preprocessing steps fail to detect chessboards. 
 
 <p align="center">
-    <img width="800" height="400" src="images/new_data.png" alt="Load Image">
+    <img width="800" height="400" src="images/new_data.jpg" alt="Load Image">
 </p>
 
 After applying some image transforms, you can see that some squares are visible however not all.
 
 <p align="center">
-    <img width="800" height="400" src="images/some_squares_visible.jpg" alt="Load Image">
+    <img width="800" height="400" src="images/some_squares_visible.png" alt="Load Image">
 </p>
 
 ### Future Tasks
