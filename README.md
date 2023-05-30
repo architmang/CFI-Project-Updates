@@ -1,7 +1,7 @@
 # CFI-Project-Updates
 Hi! This is Archit Mangrulkar. This repository contains codes developed by me and my daily task updates for the CFI project
 
-## Thursday, May 17th 
+## Thursday, May 18th 
 
 1. We captured new data today however we still face the same problem of chessboard identification ith infrared images as well. I & Kinjawl tried several approaches to solve this problem such as increasing contrast, scaling, histogram equalization, gaussian smoothing, dilation, and Canny edge detection however none of them are working. 
 
