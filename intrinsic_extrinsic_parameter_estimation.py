@@ -3,14 +3,15 @@ import cv2
 import numpy as np
 
 # Define the calibration settings
-root_dir = "./AzureKinectRecord"
+# root_dir = "./calibration0528"
+root_dir = "./AzureKinectRecord_30_05"
 col = 11
 row = 8
 square_size = 59
 criteria = (cv2.TERM_CRITERIA_MAX_ITER | cv2.TERM_CRITERIA_EPS, 30, 0.001)
 
-new_intr_pickle_file = root_dir + "/new_intrinsic_param.pkl"
-new_extr_pickle_file = root_dir + "/new_extrinsic_param.pkl"
+new_intr_pickle_file = root_dir + "/intrinsic_param.pkl"
+new_extr_pickle_file = root_dir + "/extrinsic_param.pkl"
 
 # Create the object points
 objp = np.zeros((col*row, 3), np.float32)
@@ -21,12 +22,15 @@ intr_param = {}
 extr_param = {}
 
 # Define the camera list
-cam_list = ['azure_kinect1_2_calib_snap','azure_kinect1_3_calib_snap','azure_kinect1_4_calib_snap']
+cam_list = ['azure_kinect1_2_calib_snap','azure_kinect1_3_calib_snap','azure_kinect2_4_calib_snap', 'azure_kinect2_5_calib_snap', 'azure_kinect3_2_calib_snap', 'azure_kinect3_3_calib_snap']
+start_ind = [0, 25, 50, 75, 100, 125]
 
 global img_d_shape, gray_c_shape
 
 # Iterate over the cameras
-for cam in cam_list:
+for cam_ind in range(len(cam_list)):
+    
+    cam = cam_list[cam_ind]
     print(cam)
     dir = "%s/%s" % (root_dir, cam)
 
@@ -38,10 +42,10 @@ for cam in cam_list:
     # n_images = get_number_of_images(cam)  # Replace with the function to get the number of images
     # start_index = get_start_index(cam)  # Replace with the function to get the starting index
     
-    n_images = 25
+    n_images = 181
     start_index = 0
 
-    for i in range(n_images):
+    for i in range(start_ind[cam_ind], start_ind[cam_ind] + n_images):
         flip=False
 
         # Read the color image
@@ -66,6 +70,10 @@ for cam in cam_list:
         # Find chessboard corners in the color image
         ret_c, corners_c = cv2.findChessboardCorners(gray_c, (col, row), None)
         
+        # cv2.drawChessboardCorners(gray_d, (col, row), corners2_d, ret_d)
+        # cv2.imshow('gray_d', gray_d)
+        # cv2.waitKey(50)
+
         if ret_c and ret_d:
             obj_points.append(objp)
             
