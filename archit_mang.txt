@@ -1,0 +1,1231 @@
+dict_keys(['azure_kinect1_2_color', 'azure_kinect1_2_depth', 'azure_kinect1_3_color', 'azure_kinect1_3_depth', 'azure_kinect2_4_color', 'azure_kinect2_4_depth', 'azure_kinect2_5_color', 'azure_kinect2_5_depth', 'azure_kinect3_3_color', 'azure_kinect3_3_depth', 'azure_kinect3_2_color', 'azure_kinect3_2_depth'])
+dict_keys(['azure_kinect1_2-azure_kinect1_3', 'azure_kinect1_3-azure_kinect2_4', 'azure_kinect2_4-azure_kinect2_5', 'azure_kinect2_5-azure_kinect3_3', 'azure_kinect3_3-azure_kinect3_2', 'azure_kinect3_2-azure_kinect1_2'])
+dict_keys(['azure_kinect1_2_d2c', 'azure_kinect1_3_d2c', 'azure_kinect2_4_d2c', 'azure_kinect2_5_d2c', 'azure_kinect3_3_d2c', 'azure_kinect3_2_d2c'])
+
+ Current group is 1 
+
+number of images 109
+
+ Current frame is 0 
+
+img mask is 
+ [[False False False ... False False False]
+ [False False False ... False False False]
+ [False False False ... False False False]
+ ...
+ [False False False ... False False False]
+ [False False False ... False False False]
+ [False False False ... False False False]]
+
+------------------uvd_c-------------------
+
+[[-1.30016762e+04 -4.02391164e+03  3.13873759e+00]
+ [-1.30016762e+04 -4.02391164e+03  3.13873759e+00]
+ [-1.30016762e+04 -4.02391164e+03  3.13873759e+00]
+ ...
+ [-1.30016762e+04 -4.02391164e+03  3.13873759e+00]
+ [-1.30016762e+04 -4.02391164e+03  3.13873759e+00]
+ [-1.30016762e+04 -4.02391164e+03  3.13873759e+00]]
+
+------------------uvd_c-------------------
+
+
+------------------keypoint-------------------
+
+
+The closest point to (1186.48,218.322) in rgb camera frame coordinates [[ 806.48104019  173.41519683 1836.52826276]]
+
+
+The corresponding point in xyz to [[ 806.48104019  173.41519683 1836.52826276]] is [[-313.14772487 -561.56245776 1836.52826276]]
+
+
+The corresponding point in xyz to [[ 806.48104019  173.41519683 1836.52826276]] is [-233.78440964 -732.25534969 1778.19262596]
+
+
+The closest point to (1186.48,218.322) in depth camera frame coordinatesis [ 259.5697934    87.65146816 1778.19262596]
+
+depth non zero count in vicinity of point is 7
+
+------------------keypoint-------------------
+
+
+The closest point to (1210.01,291.745) in rgb camera frame coordinates [[ 800.24091353  213.97406175 1860.65691433]]
+
+
+The corresponding point in xyz to [[ 800.24091353  213.97406175 1860.65691433]] is [[-331.66699494 -492.7941623  1860.65691433]]
+
+
+The corresponding point in xyz to [[ 800.24091353  213.97406175 1860.65691433]] is [-252.00198388 -666.18694222 1809.13320085]
+
+
+The closest point to (1210.01,291.745) in depth camera frame coordinatesis [ 255.44349202  106.08643045 1809.13320085]
+
+depth non zero count in vicinity of point is 9
+
+------------------keypoint-------------------
+
+
+The closest point to (1151.28,291.717) in rgb camera frame coordinates [[ 800.24091353  213.97406175 1860.65691433]]
+
+
+The corresponding point in xyz to [[ 800.24091353  213.97406175 1860.65691433]] is [[-331.66699494 -492.7941623  1860.65691433]]
+
+
+The corresponding point in xyz to [[ 800.24091353  213.97406175 1860.65691433]] is [-252.00198388 -666.18694222 1809.13320085]
+
+
+The closest point to (1151.28,291.717) in depth camera frame coordinatesis [ 255.44349202  106.08643045 1809.13320085]
+
+depth non zero count in vicinity of point is 9
+
+------------------keypoint-------------------
+
+
+The closest point to (1124.84,391.92) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1124.84,391.92) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1110.08,477.346) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1110.08,477.346) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1260.28,288.961) in rgb camera frame coordinates [[ 877.41429018  553.99399798 1744.0690943 ]]
+
+
+The corresponding point in xyz to [[ 877.41429018  553.99399798 1744.0690943 ]] is [[-173.44221284  168.88097688 1744.0690943 ]]
+
+
+The corresponding point in xyz to [[ 877.41429018  553.99399798 1744.0690943 ]] is [ -99.16681704    4.49819341 1751.99606867]
+
+
+The closest point to (1260.28,288.961) in depth camera frame coordinatesis [ 294.00281574  279.98903717 1751.99606867]
+
+depth non zero count in vicinity of point is 9
+
+------------------keypoint-------------------
+
+
+The closest point to (1283.85,409.655) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1283.85,409.655) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1277.79,509.757) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1277.79,509.757) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1180.76,486.182) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1180.76,486.182) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1142.38,483.173) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1142.38,483.173) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1139.51,618.499) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1139.51,618.499) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1145.53,721.713) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1145.53,721.713) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1213.17,494.973) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1213.17,494.973) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1213.15,624.579) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1213.15,624.579) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1207.18,751.006) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1207.18,751.006) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1171.93,200.749) in rgb camera frame coordinates [[ 806.48104019  173.41519683 1836.52826276]]
+
+
+The corresponding point in xyz to [[ 806.48104019  173.41519683 1836.52826276]] is [[-313.14772487 -561.56245776 1836.52826276]]
+
+
+The corresponding point in xyz to [[ 806.48104019  173.41519683 1836.52826276]] is [-233.78440964 -732.25534969 1778.19262596]
+
+
+The closest point to (1171.93,200.749) in depth camera frame coordinatesis [ 259.5697934    87.65146816 1778.19262596]
+
+depth non zero count in vicinity of point is 7
+
+------------------keypoint-------------------
+
+
+The closest point to (1195.52,200.7) in rgb camera frame coordinates [[ 806.48104019  173.41519683 1836.52826276]]
+
+
+The corresponding point in xyz to [[ 806.48104019  173.41519683 1836.52826276]] is [[-313.14772487 -561.56245776 1836.52826276]]
+
+
+The corresponding point in xyz to [[ 806.48104019  173.41519683 1836.52826276]] is [-233.78440964 -732.25534969 1778.19262596]
+
+
+The closest point to (1195.52,200.7) in depth camera frame coordinatesis [ 259.5697934    87.65146816 1778.19262596]
+
+depth non zero count in vicinity of point is 7
+
+------------------keypoint-------------------
+
+
+The closest point to (0.0,0.0) in rgb camera frame coordinates [[ 663.8083782   290.93790142 1800.85808854]]
+
+
+The corresponding point in xyz to [[ 663.8083782   290.93790142 1800.85808854]] is [[-584.96597282 -327.18600643 1800.85808854]]
+
+
+The corresponding point in xyz to [[ 663.8083782   290.93790142 1800.85808854]] is [-507.28637555 -497.2313801  1771.10386416]
+
+
+The closest point to (0.0,0.0) in depth camera frame coordinatesis [ 185.8248256   146.84406544 1771.10386416]
+
+depth non zero count in vicinity of point is 12
+
+------------------keypoint-------------------
+
+
+The closest point to (1233.64,203.673) in rgb camera frame coordinates [[ 806.48104019  173.41519683 1836.52826276]]
+
+
+The corresponding point in xyz to [[ 806.48104019  173.41519683 1836.52826276]] is [[-313.14772487 -561.56245776 1836.52826276]]
+
+
+The corresponding point in xyz to [[ 806.48104019  173.41519683 1836.52826276]] is [-233.78440964 -732.25534969 1778.19262596]
+
+
+The closest point to (1233.64,203.673) in depth camera frame coordinatesis [ 259.5697934    87.65146816 1778.19262596]
+
+depth non zero count in vicinity of point is 7
+
+------------------keypoint-------------------
+
+
+The closest point to (1165.94,780.468) in rgb camera frame coordinates [[ 835.16288406  913.08833715 2175.01033338]]
+
+
+The corresponding point in xyz to [[ 835.16288406  913.08833715 2175.01033338]] is [[-317.56719995 1103.96656275 2175.01033338]]
+
+
+The corresponding point in xyz to [[ 835.16288406  913.08833715 2175.01033338]] is [-236.80270173  893.82371729 2272.59561938]
+
+
+The closest point to (1165.94,780.468) in depth camera frame coordinatesis [ 272.11818243  462.35423698 2272.59561938]
+
+depth non zero count in vicinity of point is 5
+
+------------------keypoint-------------------
+
+
+The closest point to (1186.51,786.293) in rgb camera frame coordinates [[ 835.16288406  913.08833715 2175.01033338]]
+
+
+The corresponding point in xyz to [[ 835.16288406  913.08833715 2175.01033338]] is [[-317.56719995 1103.96656275 2175.01033338]]
+
+
+The corresponding point in xyz to [[ 835.16288406  913.08833715 2175.01033338]] is [-236.80270173  893.82371729 2272.59561938]
+
+
+The closest point to (1186.51,786.293) in depth camera frame coordinatesis [ 272.11818243  462.35423698 2272.59561938]
+
+depth non zero count in vicinity of point is 5
+
+------------------keypoint-------------------
+
+
+The closest point to (1213.15,765.647) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1213.15,765.647) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1101.34,748.127) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1101.34,748.127) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1104.18,742.058) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1104.18,742.058) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1163.0,739.202) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1163.0,739.202) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (798.158,203.707) in rgb camera frame coordinates [[ 797.79974137  203.21085915 1845.05830982]]
+
+
+The corresponding point in xyz to [[ 797.79974137  203.21085915 1845.05830982]] is [[-333.12515932 -508.59627263 1845.05830982]]
+
+
+The corresponding point in xyz to [[ 797.79974137  203.21085915 1845.05830982]] is [-253.76416213 -680.45459853 1792.14855753]
+
+
+The closest point to (798.158,203.707) in depth camera frame coordinatesis [ 254.49412265  101.23170012 1792.14855753]
+
+depth non zero count in vicinity of point is 13
+
+------------------keypoint-------------------
+
+
+The closest point to (724.5,288.859) in rgb camera frame coordinates [[ 723.82745581  288.75549622 1770.70933984]]
+
+
+The corresponding point in xyz to [[ 723.82745581  288.75549622 1770.70933984]] is [[-463.13727449 -329.45711826 1770.70933984]]
+
+
+The corresponding point in xyz to [[ 723.82745581  288.75549622 1770.70933984]] is [-386.191948   -495.898303   1738.07812788]
+
+
+The closest point to (724.5,288.859) in depth camera frame coordinatesis [ 215.48612635  143.61992507 1738.07812788]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (706.868,288.854) in rgb camera frame coordinates [[ 705.8548683   289.69706905 1760.51679088]]
+
+
+The corresponding point in xyz to [[ 705.8548683   289.69706905 1760.51679088]] is [[-493.97299706 -324.80097168 1760.51679088]]
+
+
+The corresponding point in xyz to [[ 705.8548683   289.69706905 1760.51679088]] is [-417.27680403 -490.49014301 1729.08407023]
+
+
+The closest point to (706.868,288.854) in depth camera frame coordinatesis [ 206.57063425  144.67680015 1729.08407023]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (703.918,439.101) in rgb camera frame coordinates [[ 704.6601358   439.49372517 1769.89008282]]
+
+
+The corresponding point in xyz to [[ 704.6601358   439.49372517 1769.89008282]] is [[-506.59668775  -46.45335766 1769.89008282]]
+
+
+The corresponding point in xyz to [[ 704.6601358   439.49372517 1769.89008282]] is [-430.77220602 -214.35320264 1765.0128148 ]
+
+
+The closest point to (703.918,439.101) in depth camera frame coordinatesis [ 203.17027913  220.0991021  1765.0128148 ]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (810.014,506.782) in rgb camera frame coordinates [[ 810.82383823  507.65001649 1757.46168829]]
+
+
+The corresponding point in xyz to [[ 810.82383823  507.65001649 1757.46168829]] is [[-302.94670639   80.98197736 1757.46168829]]
+
+
+The corresponding point in xyz to [[ 810.82383823  507.65001649 1757.46168829]] is [-227.97377468  -85.06591391 1759.99906088]
+
+
+The closest point to (810.014,506.782) in depth camera frame coordinatesis [ 258.01017752  254.9996477  1759.99906088]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (745.101,286.039) in rgb camera frame coordinates [[ 746.41738513  285.958209   1880.17164138]]
+
+
+The corresponding point in xyz to [[ 746.41738513  285.958209   1880.17164138]] is [[-446.55170852 -356.57198185 1880.17164138]]
+
+
+The corresponding point in xyz to [[ 746.41738513  285.958209   1880.17164138]] is [-366.93158389 -533.12318799 1844.07642313]
+
+
+The closest point to (745.101,286.039) in depth camera frame coordinatesis [ 226.40264669  141.56987098 1844.07642313]
+
+depth non zero count in vicinity of point is 11
+
+------------------keypoint-------------------
+
+
+The closest point to (718.734,433.223) in rgb camera frame coordinates [[ 718.49974452  432.30359382 1789.88858977]]
+
+
+The corresponding point in xyz to [[ 718.49974452  432.30359382 1789.88858977]] is [[-485.45283728  -61.44228709 1789.88858977]]
+
+
+The corresponding point in xyz to [[ 718.49974452  432.30359382 1789.88858977]] is [-409.10532129 -231.0330044  1783.01284306]
+
+
+The closest point to (718.734,433.223) in depth camera frame coordinatesis [ 210.1470945   216.09423513 1783.01284306]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (815.762,518.459) in rgb camera frame coordinates [[ 816.34772819  518.80143458 1747.71467706]]
+
+
+The corresponding point in xyz to [[ 816.34772819  518.80143458 1747.71467706]] is [[-290.91143663  101.89959326 1747.71467706]]
+
+
+The corresponding point in xyz to [[ 816.34772819  518.80143458 1747.71467706]] is [-216.25334876  -63.24808803 1751.99826773]
+
+
+The closest point to (815.762,518.459) in depth camera frame coordinatesis [ 261.0084509   260.99681322 1751.99826773]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (742.262,550.931) in rgb camera frame coordinates [[ 741.99759045  551.80326892 1902.67485655]]
+
+
+The corresponding point in xyz to [[ 741.99759045  551.80326892 1902.67485655]] is [[-472.1206478   182.27134394 1902.67485655]]
+
+
+The corresponding point in xyz to [[ 741.99759045  551.80326892 1902.67485655]] is [-3.94085292e+02  1.02224492e+00  1.91799278e+03]
+
+
+The closest point to (742.262,550.931) in depth camera frame coordinatesis [ 221.04383383  278.98629743 1917.99277933]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (736.341,553.911) in rgb camera frame coordinates [[ 736.13413397  553.63163293 1900.04095692]]
+
+
+The corresponding point in xyz to [[ 736.13413397  553.63163293 1900.04095692]] is [[-483.62969768  186.0370275  1900.04095692]]
+
+
+The corresponding point in xyz to [[ 736.13413397  553.63163293 1900.04095692]] is [-405.66780247    4.94903129 1915.99231993]
+
+
+The closest point to (736.341,553.911) in depth camera frame coordinatesis [ 218.04905692  279.98533002 1915.99231993]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (745.167,715.719) in rgb camera frame coordinates [[ 745.8246959   714.78471494 2004.99594575]]
+
+
+The corresponding point in xyz to [[ 745.8246959   714.78471494 2004.99594575]] is [[-492.30327502  559.23824797 2004.99594575]]
+
+
+The corresponding point in xyz to [[ 745.8246959   714.78471494 2004.99594575]] is [-413.34103196  366.51534377 2055.92392755]
+
+
+The closest point to (745.167,715.719) in depth camera frame coordinatesis [ 224.08177684  364.75965882 2055.92392755]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (739.167,898.135) in rgb camera frame coordinates [[ 738.85419332  898.02816837 2125.73332106]]
+
+
+The corresponding point in xyz to [[ 738.85419332  898.02816837 2125.73332106]] is [[-538.28505266 1040.50419744 2125.73332106]]
+
+
+The corresponding point in xyz to [[ 738.85419332  898.02816837 2125.73332106]] is [-458.36627366  833.94282008 2222.63635597]
+
+
+The closest point to (739.167,898.135) in depth camera frame coordinatesis [ 224.42919079  453.38657698 2222.63635597]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (759.879,547.951) in rgb camera frame coordinates [[ 759.64846137  548.20928659 1928.04972501]]
+
+
+The corresponding point in xyz to [[ 759.64846137  548.20928659 1928.04972501]] is [[-441.2545176   176.52808303 1928.04972501]]
+
+
+The corresponding point in xyz to [[ 759.64846137  548.20928659 1928.04972501]] is [-362.60891595   -6.90120631 1941.99368839]
+
+
+The closest point to (759.879,547.951) in depth camera frame coordinatesis [ 230.03015709  276.98782731 1941.99368839]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (754.011,709.799) in rgb camera frame coordinates [[ 753.70584996  710.71054213 1993.58772819]]
+
+
+The corresponding point in xyz to [[ 753.70584996  710.71054213 1993.58772819]] is [[-472.22274955  546.75910241 1993.58772819]]
+
+
+The corresponding point in xyz to [[ 753.70584996  710.71054213 1993.58772819]] is [-393.48522683  355.29239522 2042.92791149]
+
+
+The closest point to (754.011,709.799) in depth camera frame coordinatesis [ 228.0698387   362.77684165 2042.92791149]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (742.292,845.186) in rgb camera frame coordinates [[ 743.31072594  845.11950243 2097.56562966]]
+
+
+The corresponding point in xyz to [[ 743.31072594  845.11950243 2097.56562966]] is [[-521.07120685  898.22634494 2097.56562966]]
+
+
+The corresponding point in xyz to [[ 743.31072594  845.11950243 2097.56562966]] is [-441.25934468  695.06780674 2180.75788553]
+
+
+The closest point to (742.292,845.186) in depth camera frame coordinatesis [ 225.26830226  429.02187317 2180.75788553]
+
+depth non zero count in vicinity of point is 25
+
+------------------keypoint-------------------
+
+
+The closest point to (786.177,185.869) in rgb camera frame coordinates [[ 782.91664948  183.04304021 1795.5071251 ]]
+
+
+The corresponding point in xyz to [[ 782.91664948  183.04304021 1795.5071251 ]] is [[-351.41035094 -530.49965593 1795.5071251 ]]
+
+
+The corresponding point in xyz to [[ 782.91664948  183.04304021 1795.5071251 ]] is [-273.12258861 -697.6942798  1741.1831668 ]
+
+
+The closest point to (786.177,185.869) in depth camera frame coordinatesis [ 247.65468639   92.57580232 1741.1831668 ]
+
+depth non zero count in vicinity of point is 13
+
+------------------keypoint-------------------
+
+
+The closest point to (809.888,194.759) in rgb camera frame coordinates [[ 799.66259422  199.02263249 1851.06069048]]
+
+
+The corresponding point in xyz to [[ 799.66259422  199.02263249 1851.06069048]] is [[-330.33371015 -518.1565953  1851.06069048]]
+
+
+The corresponding point in xyz to [[ 799.66259422  199.02263249 1851.06069048]] is [-250.79479649 -690.52154462 1797.15455348]
+
+
+The closest point to (809.888,194.759) in depth camera frame coordinatesis [ 255.50183313   99.28314713 1797.15455348]
+
+depth non zero count in vicinity of point is 6
+
+------------------keypoint-------------------
+
+
+The closest point to (721.712,177.147) in rgb camera frame coordinates [[ 721.16313024  176.71292001 1821.2862474 ]]
+
+
+The corresponding point in xyz to [[ 721.16313024  176.71292001 1821.2862474 ]] is [[-474.24630794 -545.68942763 1821.2862474 ]]
+
+
+The corresponding point in xyz to [[ 721.16313024  176.71292001 1821.2862474 ]] is [-395.25796384 -716.0036154  1768.23280619]
+
+
+The closest point to (721.712,177.147) in depth camera frame coordinatesis [ 217.10513471   91.96993127 1768.23280619]
+
+depth non zero count in vicinity of point is 20
+
+------------------keypoint-------------------
+
+
+The closest point to (0.0,0.0) in rgb camera frame coordinates [[ 663.8083782   290.93790142 1800.85808854]]
+
+
+The corresponding point in xyz to [[ 663.8083782   290.93790142 1800.85808854]] is [[-584.96597282 -327.18600643 1800.85808854]]
+
+
+The corresponding point in xyz to [[ 663.8083782   290.93790142 1800.85808854]] is [-507.28637555 -497.2313801  1771.10386416]
+
+
+The closest point to (0.0,0.0) in depth camera frame coordinatesis [ 185.8248256   146.84406544 1771.10386416]
+
+depth non zero count in vicinity of point is 12
+
+------------------keypoint-------------------
+
+
+The closest point to (801.05,839.36) in rgb camera frame coordinates [[ 801.28465117  842.98263702 2453.91368877]]
+
+
+The corresponding point in xyz to [[ 801.28465117  842.98263702 2453.91368877]] is [[-452.05627543 1045.29640197 2453.91368877]]
+
+
+The corresponding point in xyz to [[ 801.28465117  842.98263702 2453.91368877]] is [-364.46735774  808.26205741 2547.72744014]
+
+
+The closest point to (801.05,839.36) in depth camera frame coordinatesis [ 253.1232496   429.13709085 2547.72744014]
+
+depth non zero count in vicinity of point is 7
+
+------------------keypoint-------------------
+
+
+The closest point to (792.298,836.35) in rgb camera frame coordinates [[ 787.35096868  843.50745931 2436.60877771]]
+
+
+The corresponding point in xyz to [[ 787.35096868  843.50745931 2436.60877771]] is [[-486.57694163 1039.2445032  2436.60877771]]
+
+
+The corresponding point in xyz to [[ 787.35096868  843.50745931 2436.60877771]] is [-399.36113055  803.65899327 2530.72749191]
+
+
+The closest point to (792.298,836.35) in depth camera frame coordinatesis [ 246.15332238  429.11474302 2530.72749191]
+
+depth non zero count in vicinity of point is 5
+
+------------------keypoint-------------------
+
+
+The closest point to (718.604,862.862) in rgb camera frame coordinates [[ 718.130704    863.02816174 2116.26964113]]
+
+
+The corresponding point in xyz to [[ 718.130704    863.02816174 2116.26964113]] is [[-584.36960169  949.90772434 2116.26964113]]
+
+
+The corresponding point in xyz to [[ 718.130704    863.02816174 2116.26964113]] is [-504.30357025  744.36312595 2205.71562856]
+
+
+The closest point to (718.604,862.862) in depth camera frame coordinatesis [ 213.4077103   436.76877606 2205.71562856]
+
+depth non zero count in vicinity of point is 23
+
+------------------keypoint-------------------
+
+
+The closest point to (821.685,909.913) in rgb camera frame coordinates [[ 823.35348546  911.39401144 2186.25095184]]
+
+
+The corresponding point in xyz to [[ 823.35348546  911.39401144 2186.25095184]] is [[-348.11175107 1105.15379582 2186.25095184]]
+
+
+The corresponding point in xyz to [[ 823.35348546  911.39401144 2186.25095184]] is [-267.07905381  893.75697785 2284.59848066]
+
+
+The closest point to (821.685,909.913) in depth camera frame coordinatesis [ 266.15269814  461.36882967 2284.59848066]
+
+depth non zero count in vicinity of point is 2
+
+------------------keypoint-------------------
+
+
+The closest point to (806.912,921.751) in rgb camera frame coordinates [[ 806.79828911  922.82038283 2155.07401149]]
+
+
+The corresponding point in xyz to [[ 806.79828911  922.82038283 2155.07401149]] is [[-382.83225093 1117.86503718 2155.07401149]]
+
+
+The corresponding point in xyz to [[ 806.79828911  922.82038283 2155.07401149]] is [-302.57250276  909.14122421 2255.57038352]
+
+
+The closest point to (806.912,921.751) in depth camera frame coordinatesis [ 258.22591814  466.16912441 2255.57038352]
+
+depth non zero count in vicinity of point is 24
+
+------------------keypoint-------------------
+
+
+The closest point to (715.771,912.934) in rgb camera frame coordinates [[ 715.60433143  912.18470618 2152.79154021]]
+
+
+The corresponding point in xyz to [[ 715.60433143  912.18470618 2152.79154021]] is [[-600.34339566 1089.07776703 2152.79154021]]
+
+
+The corresponding point in xyz to [[ 715.60433143  912.18470618 2152.79154021]] is [-519.96221117  879.36322727 2255.58637746]
+
+
+The closest point to (715.771,912.934) in depth camera frame coordinatesis [ 213.596598    459.08820536 2255.58637746]
+
+depth non zero count in vicinity of point is 24
+
+------------------keypoint-------------------
+
+
+The closest point to (1589.76,300.737) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1589.76,300.737) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1545.69,336.037) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1545.69,336.037) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1516.22,335.921) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1516.22,335.921) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1516.29,386.114) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1516.29,386.114) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1572.2,385.935) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1572.2,385.935) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1581.04,338.827) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1581.04,338.827) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1601.63,380.138) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1601.63,380.138) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1545.71,383.115) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1545.71,383.115) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1542.77,456.573) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1542.77,456.573) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1519.34,453.772) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1519.34,453.772) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1498.64,536.136) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1498.64,536.136) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1492.72,618.556) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1492.72,618.556) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1563.48,456.645) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1563.48,456.645) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1560.3,533.321) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1560.3,533.321) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1539.92,615.662) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1539.92,615.662) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1586.81,291.961) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1586.81,291.961) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1592.76,294.771) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1592.76,294.771) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1563.2,288.857) in rgb camera frame coordinates [[ 881.17554012  559.50636203 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [[-166.90492951  180.30253866 1751.17316009]]
+
+
+The corresponding point in xyz to [[ 881.17554012  559.50636203 1751.17316009]] is [ -92.5093741    15.23802771 1759.99546305]
+
+
+The closest point to (1563.2,288.857) in depth camera frame coordinatesis [ 296.00285507  282.98732543 1759.99546305]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (0.0,0.0) in rgb camera frame coordinates [[ 663.8083782   290.93790142 1800.85808854]]
+
+
+The corresponding point in xyz to [[ 663.8083782   290.93790142 1800.85808854]] is [[-584.96597282 -327.18600643 1800.85808854]]
+
+
+The corresponding point in xyz to [[ 663.8083782   290.93790142 1800.85808854]] is [-507.28637555 -497.2313801  1771.10386416]
+
+
+The closest point to (0.0,0.0) in depth camera frame coordinatesis [ 185.8248256   146.84406544 1771.10386416]
+
+depth non zero count in vicinity of point is 12
+
+------------------keypoint-------------------
+
+
+The closest point to (1569.23,639.139) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1569.23,639.139) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1569.22,630.371) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1569.22,630.371) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1533.9,621.451) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1533.9,621.451) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1516.23,624.516) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1516.23,624.516) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1498.66,627.375) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1498.66,627.375) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10
+
+------------------keypoint-------------------
+
+
+The closest point to (1489.8,621.594) in rgb camera frame coordinates [[ 881.17799144  561.34405608 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [[-166.88305159  183.85949683 1750.83562691]]
+
+
+The corresponding point in xyz to [[ 881.17799144  561.34405608 1750.83562691]] is [ -92.50943626   18.81103186 1759.99522842]
+
+
+The closest point to (1489.8,621.594) in depth camera frame coordinatesis [ 296.00292869  283.98665531 1759.99522842]
+
+depth non zero count in vicinity of point is 10

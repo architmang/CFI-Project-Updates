@@ -36,7 +36,7 @@ class Transform:
         return M
 
 
-def substract_foreground(bg_img, img, min_depth=500, max_depth=4000):
+def substract_foreground(bg_img, img, min_depth=500, max_depth=10000):
     import scipy.ndimage
     bg_img = bg_img.astype(np.float32)
     img = img.astype(np.float32)
