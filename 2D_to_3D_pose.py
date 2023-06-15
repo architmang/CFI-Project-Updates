@@ -88,24 +88,13 @@ def inverse_extrinsic_params(R_12, t_12):
     
     return R_21, t_21
 
-# def twodim_2_threedim(y, x, uvd, pts, intr_params):
-#     # Calculate the overall distance
-#     distances = np.sqrt((uvd[:, 0] - x) ** 2 + (uvd[:, 1] - y) ** 2)
-#     closest_index = np.argmin(distances)
-#     closest_coordinates = uvd[closest_index]
-#     print(f"for given {x} & {y}, closest coordinate as {closest_coordinates}")
-#     closest_coordinates = closest_coordinates.reshape((1,3))
-#     # print(f"\nshape is {closest_coordinates.shape}\n")
-#     xyz = unprojection(closest_coordinates, intr_params)
-#     xyz_ = get_homo_point(xyz)[0]
-#     return xyz_
 
 def transform_to_cam1(xyz, extr_params, cam):
     xyz = get_homo_point(xyz)
     # print(f"\n shape of xyz is {xyz.shape}\n")
 
     if cam == 'azure_kinect1_2':
-        z = pts[:, 0:3]
+        z = xyz[:, 0:3]
         # print(f"\n pts shape afterwards is {z.shape}\n")
         # print(f"\n pts afterwards is {z}\n")
         return z
@@ -301,34 +290,43 @@ if __name__ == '__main__':
                             # Find the point closest to keypoints[i][0],keypoints[i][1] in uvd_c
                             distances = np.sum((uvd_c[:, :2] - np.array([keypoints[i][0], keypoints[i][1]])) ** 2, axis=1)
                             closest_index = np.argmin(distances)
-                            closest_point_c = uvd_c[closest_index]
-                            closest_point_c = closest_point_c.reshape((-1,3))
 
-                            # print(f"\nThe closest point to ({keypoints[i][0]},{keypoints[i][1]}) in rgb camera frame coordinates {closest_point_c}\n")
-                            # print(f"shape of closest_point_c is {closest_point_c.shape}\n")
-                            pts = unprojection(closest_point_c, intr_params['%s_color' % cam], simple_mode=False)
-                            # print(f"\nThe corresponding point in xyz to {closest_point_c} is {pts}\n")
-                            xyz = np.dot(tranform_matrix_d2c_inv, np.append(pts, 1))[:3]  # assuming transform_matrix_d2c_inv is available
-                            # print(f"\nThe corresponding point in xyz to {closest_point_c} is {xyz}\n")
-                            # print(f"shape of xyz is {xyz.shape}\n")
-                            xyz = xyz.reshape((-1,3))
-                            xyz = transform_to_cam1(xyz, extr_params, cam)
+                            # first line of thought------------------------------------------------------------------------------------
+                            # closest_point_c = uvd_c[closest_index]
+                            # closest_point_c = closest_point_c.reshape((-1,3))
+                            # # print(f"\nThe closest point to ({keypoints[i][0]},{keypoints[i][1]}) in rgb camera frame coordinates {closest_point_c}\n")
+                            # # print(f"shape of closest_point_c is {closest_point_c.shape}\n")
+                            # pts = unprojection(closest_point_c, intr_params['%s_color' % cam], simple_mode=False)
+                            # # print(f"\nThe corresponding point in xyz to {closest_point_c} is {pts}\n")
+                            # xyz = np.dot(tranform_matrix_d2c_inv, np.append(pts, 1))[:3]  # assuming transform_matrix_d2c_inv is available
+                            # # print(f"\nThe corresponding point in xyz to {closest_point_c} is {xyz}\n")
+                            # # print(f"shape of xyz is {xyz.shape}\n")
+                            # xyz = xyz.reshape((-1,3))
+                            # xyz = transform_to_cam1(xyz, extr_params, cam)
+                            # closest_point_d = projection(xyz, intr_params['%s_depth' % cam1])  # assuming reverse_unprojection is available
+                            # # print(f"\nThe closest point to ({keypoints[i][0]},{keypoints[i][1]}) in depth camera frame coordinatesis {closest_point_d[0]}\n")
+                            # # print(f"shape of closest_point_d[0] is {closest_point_d[0].shape}\n")
+                            # # Print or use the closest_point here
+                            # # print(f"The corresponding point in uvd to {closest_point_c} is {closest_point}")
 
-                            closest_point_d = projection(xyz, intr_params['%s_depth' % cam1])  # assuming reverse_unprojection is available
-                            # print(f"\nThe closest point to ({keypoints[i][0]},{keypoints[i][1]}) in depth camera frame coordinatesis {closest_point_d[0]}\n")
-                            # print(f"shape of closest_point_d[0] is {closest_point_d[0].shape}\n")
-                            # Print or use the closest_point here
-                            # print(f"The corresponding point in uvd to {closest_point_c} is {closest_point}")
+                            # # Get the depth at that pixel
+                            # # depth_at_uv = depth_img[v, u]
+                            # # uvd = np.array([u, v, depth_at_uv]).reshape((1,3))
+                            # # xyz = unprojection(uvd, intr_params['%s_depth' % cam])
+                            # # pts = get_homo_point(np.asarray(xyz))[0]
 
-                            # Get the depth at that pixel
-                            # depth_at_uv = depth_img[v, u]
-                            # uvd = np.array([u, v, depth_at_uv]).reshape((1,3))
-                            # xyz = unprojection(uvd, intr_params['%s_depth' % cam])
-                            # pts = get_homo_point(np.asarray(xyz))[0]
+                            # # print(f"color image cord are {x},{y} \n")
+                            # # print(f"depth image cord are {u},{v} and depth {depth_at_uv}\n")
+                            # # print(f"homogeneous cord are {pts}   \n")
 
-                            # print(f"color image cord are {x},{y} \n")
-                            # print(f"depth image cord are {u},{v} and depth {depth_at_uv}\n")
-                            # print(f"homogeneous cord are {pts}   \n")
+                            # second line of thought---------------------------------------------------------------------------------
+                            closest_point_d = uvd[closest_index]
+                            closest_point_d = closest_point_d.reshape((-1,3))
+                            pts = unprojection(closest_point_d, intr_params['%s_depth' % cam], simple_mode=False)
+                            pts_cam1 = transform_to_cam1(pts, extr_params, cam)
+                            closest_point_d_cam1 = projection(pts_cam1, intr_params['%s_depth' % cam1])  # assuming reverse_unprojection is available
+                            # print(f"\nThe corresponding point in uvd_cam1 for {keypoints[i][0], keypoints[i][1]} is {closest_point_d_cam1}\n")
+
                             a1 = int(closest_point_d[0][0])
                             b1 = int(closest_point_d[0][1])
                             num_points = count_points_within_radius(a1, b1, img)

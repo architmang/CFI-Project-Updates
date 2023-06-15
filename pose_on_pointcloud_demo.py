@@ -91,12 +91,6 @@ def get_tranform_mtx(r, t):
     return T
 
 def inverse_extrinsic_params(R_12, t_12):
-    """
-    Compute the inverse of the extrinsic parameters.
-    R_12: rotation matrix from camera 1 to camera 2
-    t_12: translation vector from camera 1 to camera 2
-    Returns: R_21 and t_21
-    """
     # Compute the inverse rotation matrix
     R_21 = np.transpose(R_12)
     
@@ -109,86 +103,6 @@ def inverse_extrinsic_params(R_12, t_12):
 def capture_screenshot(file_path):
     screenshot = pyautogui.screenshot()
     screenshot.save(file_path)
-
-def convert_to_cam1(keypoint, intr_params, extr_params, cam):
-    
-    pts = np.append(keypoint, 1)
-    # pts = np.array(keypoint).reshape(-1, 3)
-    # print(f"\npoints before transformation shape: {pts.shape}")
-    # print(f"\npoints is: {pts}")
-
-    if cam == 'azure_kinect1_2':
-        
-        pts = pts[:-1]
-        print(f"\npoints after transformation shape: {pts.shape}")
-        return pts
-        
-    
-    if cam == 'azure_kinect1_3':
-        r,t = extr_params['%s-%s' % ('azure_kinect1_2', cam)][0], extr_params['%s-%s' % ('azure_kinect1_2', cam)][1]
-        tranform_matrix = get_tranform_mtx(r,t)
-        pts = np.dot(tranform_matrix, pts.T).T
-        pts = pts[:-1]
-
-        print(f"\npoints after transformation shape: {pts.shape}")
-        return pts
-        
-
-    if cam == 'azure_kinect2_4':
-        # cam3 to cam2
-        r,t = extr_params['%s-%s' % ('azure_kinect1_3', cam)][0], extr_params['%s-%s' % ('azure_kinect1_3', cam)][1]
-        tranform_matrix = get_tranform_mtx(r,t)
-        # pts = np.dot(tranform_matrix, pts.T).T[:, 0:3]
-        pts = np.dot(tranform_matrix, pts.T).T
-
-        # cam2 to cam1
-        r,t = extr_params['%s-%s' % ('azure_kinect1_2', 'azure_kinect1_3')][0], extr_params['%s-%s' % ('azure_kinect1_2', 'azure_kinect1_3')][1]
-        tranform_matrix = get_tranform_mtx(r,t)
-        pts = np.dot(tranform_matrix, pts.T).T
-        
-        # print(f"\npoints after transformation shape: {pts.shape}")
-        return pts
-        
-
-    if cam == 'azure_kinect2_5':
-        r,t = inverse_extrinsic_params(extr_params['%s-%s' % ('azure_kinect2_5', 'azure_kinect3_3')][0], extr_params['%s-%s' % ('azure_kinect2_5', 'azure_kinect3_3')][1])
-        tranform_matrix = get_tranform_mtx(r,t)
-        pts = np.dot(tranform_matrix, pts.T).T
-
-        r,t = inverse_extrinsic_params(extr_params['%s-%s' % ('azure_kinect3_3', 'azure_kinect3_2')][0], extr_params['%s-%s' % ('azure_kinect3_3', 'azure_kinect3_2')][1])
-        tranform_matrix = get_tranform_mtx(r,t)
-        pts = np.dot(tranform_matrix, pts.T).T
-
-        r,t = inverse_extrinsic_params(extr_params['%s-%s' % ('azure_kinect3_2', 'azure_kinect1_2')][0], extr_params['%s-%s' % ('azure_kinect3_2', 'azure_kinect1_2')][1])
-        tranform_matrix = get_tranform_mtx(r,t)
-        pts = np.dot(tranform_matrix, pts.T).T
-        
-        # print(f"\npoints after transformation shape: {pts.shape}")
-        return pts
-        
-
-    if cam == 'azure_kinect3_3':
-
-        r,t = inverse_extrinsic_params(extr_params['%s-%s' % ('azure_kinect3_3', 'azure_kinect3_2')][0], extr_params['%s-%s' % ('azure_kinect3_3', 'azure_kinect3_2')][1])
-        tranform_matrix = get_tranform_mtx(r,t)
-        pts = np.dot(tranform_matrix, pts.T).T
-
-        r,t = inverse_extrinsic_params(extr_params['%s-%s' % ('azure_kinect3_2', 'azure_kinect1_2')][0], extr_params['%s-%s' % ('azure_kinect3_2', 'azure_kinect1_2')][1])
-        tranform_matrix = get_tranform_mtx(r,t)
-        pts = np.dot(tranform_matrix, pts.T).T
-        
-        # print(f"\npoints after transformation shape: {pts.shape}")
-        return pts
-        
-
-    if cam == 'azure_kinect3_2':
-        r,t = inverse_extrinsic_params(extr_params['%s-%s' % (cam, 'azure_kinect1_2')][0], extr_params['%s-%s' % (cam, 'azure_kinect1_2')][1])
-        tranform_matrix = get_tranform_mtx(r,t)
-        pts = np.dot(tranform_matrix, pts.T).T
-
-        # print(f"\npoints after transformation shape: {pts.shape}")
-        return pts
-
 
 data_dir = './AzureKinectRecord_30_05'
 group_list = ['1', '2', '3']  
@@ -227,7 +141,15 @@ frame_idx = 0
 _frame_idx = start_index + frame_idx
 
 # cam = 'azure_kinect1_2'
-dict - {}
+dict = {}
+
+fname = '%s/%s/depth_point_cloud/pose%04i.ply' % (data_dir, group_name, _frame_idx)
+point_cloud = o3d.io.read_point_cloud(fname)
+point_cloud.points = o3d.utility.Vector3dVector(np.asarray(point_cloud.points) * np.array([1, -1, -1]))
+_, ind = point_cloud.remove_radius_outlier(nb_points=30, radius=50)
+point_cloud = point_cloud.select_by_index(ind)
+# visualizer.add_geometry(point_cloud)
+
 for cam in cam_list:
 
     print(f"\n Current cam is {cam} \n")
@@ -262,19 +184,6 @@ for cam in cam_list:
     # # Show the plot
     # plt.show()
 
-    # Generate the file path for the current frame
-    fname = '%s/%s/depth_point_cloud/pose%04i.ply' % (data_dir, group_name, _frame_idx)
-    # Load the point cloud from file
-    point_cloud = o3d.io.read_point_cloud(fname)
-
-    # Flip the point cloud along the Z-axis
-    point_cloud.points = o3d.utility.Vector3dVector(np.asarray(point_cloud.points) * np.array([1, -1, -1]))
-
-    # get rid of redundant points
-    _, ind = point_cloud.remove_radius_outlier(nb_points=30, radius=50)
-    point_cloud = point_cloud.select_by_index(ind)
-
-    # visualizer.add_geometry(point_cloud)
     color_list = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
     print("number of people are: ", len(data_people))
