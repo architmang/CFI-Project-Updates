@@ -109,6 +109,9 @@ def avg_joints_distance(keypoints_3d_list, keypoints_3d_list_prev):
     avg_distance = np.mean(distances)
     return avg_distance
 
+def id2color(person_index):
+    color_list = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+    return color_list[person_index]
 
 data_dir = './AzureKinectRecord_30_05'
 group_list = ['1', '2', '3']  
@@ -185,6 +188,7 @@ print("\n-----------------------------\n")
 index_global = 0
 num_frames = 20
 for frame_idx in range(num_frames):
+
     print(f"\n Current frame is {frame_idx} \n")
     _frame_idx = start_index + frame_idx
     keypoints_3d_list = dict[_frame_idx]
@@ -193,7 +197,7 @@ for frame_idx in range(num_frames):
     
     if frame_idx == 0:
         for index in range(len(keypoints_3d_list)):
-            keypoints_3d_list[i][0] = i
+            keypoints_3d_list[index][0] = index_global
             index_global += 1
 
     if frame_idx > 0:
@@ -244,66 +248,47 @@ for frame_idx in range(num_frames):
 
     print("\n-----------------------------\n")
 
-    for person_index, person in enumerate(data_people):
-        print(f"\n---------------{person_index}------------\n")
-        keypoints_3d = []
+for frame_idx in range(num_frames):
+    keypoints_3d_list = dict[_frame_idx]
+    num_people = len(keypoints_3d_list)
+    
+    for person_index, keypoints_3d in keypoints_3d_list:
         spheres = []
-        color = color_list[person_index] # different color for each line
+        colors = [[1, 0, 0] for _ in range(len(connections))] # red color for each line
+        lines = []
+        for connection in connections:
+            start_part = connection[0]
+            start_index = body_parts[start_part]
 
-        if 'pose_keypoints_3d' in person and len(person['pose_keypoints_3d']) > 0:
-            keypoints_3d = person['pose_keypoints_3d']
-            print("\n-----------------------------\n")
-            # print(f"keypoints_3d element shape is {keypoints_3d[0].shape}\n")
-            # print(f"keypoints_3d element is {keypoints_3d[0]}")
-            print(keypoints_3d)
-            keypoints_3d = [keypoint[0] for keypoint in keypoints_3d]
-            print("\n-----------------------------\n")
-            keypoints_3d = keypoints_3d*np.array([1, -1, -1])
-            # keypoints_3d = (np.array(keypoints_3d)).reshape(-1, 4)
-            print(keypoints_3d)
-            print("\n-----------------------------\n")
-            keypoints_3d = np.array(keypoints_3d).reshape(-1, 3)
-            # keypoints_3d = keypoints_3d*np.array([1, -1, -1, 1])
-            colors = [[1, 0, 0] for _ in range(len(connections))] # red color for each line
-            lines = []
-            for connection in connections:
-                start_part = connection[0]
-                start_index = body_parts[start_part]
+            end_part = connection[1]
+            end_index = body_parts[end_part]
 
-                end_part = connection[1]
-                end_index = body_parts[end_part]
+            lines.append([start_index, end_index]) # Open3D uses indices for lines
+        # Create line set
+        line_set = o3d.geometry.LineSet()
+        line_set.points = o3d.utility.Vector3dVector(keypoints_3d[i] for i in range(len(keypoints_3d)))
+        line_set.lines = o3d.utility.Vector2iVector(lines)
+        line_set.colors = o3d.utility.Vector3dVector(colors)
+        # Then you can add the LineSet to the visualizer:
+        visualizer.add_geometry(line_set)
 
-                lines.append([start_index, end_index]) # Open3D uses indices for lines
-            # Create line set
-            line_set = o3d.geometry.LineSet()
-            line_set.points = o3d.utility.Vector3dVector(keypoints_3d[i] for i in range(len(keypoints_3d)))
-            line_set.lines = o3d.utility.Vector2iVector(lines)
-            line_set.colors = o3d.utility.Vector3dVector(colors)
-            # Then you can add the LineSet to the visualizer:
-            visualizer.add_geometry(line_set)
+        for keypoint in keypoints_3d[:15]:
+            # Create a sphere geometry for the keypoint
+            sphere = o3d.geometry.TriangleMesh.create_sphere(radius=10)
+            # translate the sphere to the keypoint
+            keypoint = np.squeeze(keypoint[0:3])  # use np.squeeze to ensure keypoint is a 1D array
+            sphere.translate(keypoint)
+            sphere.paint_uniform_color(id2color(person_index))
+            spheres.append(sphere)
+            visualizer.add_geometry(sphere)
 
-            for keypoint in keypoints_3d[:15]:
-                # Create a sphere geometry for the keypoint
-                sphere = o3d.geometry.TriangleMesh.create_sphere(radius=10)
-                # translate the sphere to the keypoint
-                keypoint = np.squeeze(keypoint[0:3])  # use np.squeeze to ensure keypoint is a 1D array
-                sphere.translate(keypoint)
-                sphere.paint_uniform_color(color)
-                spheres.append(sphere)
-                visualizer.add_geometry(sphere)
-
-            # visualizer.update_geometry(point_cloud)
-            for sphere in spheres:
-                visualizer.update_geometry(sphere)
-            visualizer.poll_events()
-            visualizer.update_renderer()
-            time.sleep(10)
-
-    # delay for 10 seconds
-    # visualizer.poll_events()
-    # visualizer.update_renderer()
-    time.sleep(15)
-
-    # visualizer.remove_geometry(point_cloud)
+        # visualizer.update_geometry(point_cloud)
+        for sphere in spheres:
+            visualizer.update_geometry(sphere)
+        visualizer.poll_events()
+        visualizer.update_renderer()
+    
+    time.sleep(3)
     visualizer.remove_geometry(line_set)
-    visualizer.destroy_window()
+
+visualizer.destroy_window()
