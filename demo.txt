@@ -1,0 +1,5 @@
+
+ Current group is 1 
+
+number of images 109
+Average distance: 1.7320508075688774
