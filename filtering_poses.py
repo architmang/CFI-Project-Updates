@@ -101,6 +101,8 @@ if __name__ == '__main__':
         
         for cam in cam_list:
 
+            print(f"\n Current cam is {cam} \n")
+
             for frame_idx in range(num_frames):
 
                 _frame_idx = start_index + frame_idx
@@ -115,13 +117,34 @@ if __name__ == '__main__':
                     raise
 
                 data_people = data['people']
-                # print(data_people)
+                dname = '%s/%s/%s/depth/depth%04i.png' % (data_dir, group_name, cam, _frame_idx)
+                cname = '%s/%s/%s/color/color%04i.jpg' % (data_dir, group_name, cam, _frame_idx)
+                
+                if not os.path.exists(dname):
+                    continue
+
+                color_img = cv2.imread(cname)
+                depth_img = cv2.imread(dname, -1).astype(np.float32)
+
+                if np.mean(depth_img) < 1:
+                    print('[invalid] %s' % dname)
+                    continue
+
+                if depth_img is None:
+                    print("Error reading depth image.")
+                    continue
+
+                if color_img is None:
+                    print("Error reading color image.")
+                    continue
 
                 for person_index, person in enumerate(data_people):
 
-                    if 'pose_keypoints_2d' in person:
+                    if 'pose_keypoints_2d' in person and len(person['pose_keypoints_2d']) > 0:
+
                         keypoints = person['pose_keypoints_2d']
                         keypoints = np.array(keypoints).reshape(-1, 3)
+                        person['pose_keypoints_2d'] = keypoints
 
                         # central keypoint
                         x_central = keypoints[8][0]
@@ -132,6 +155,13 @@ if __name__ == '__main__':
                         # Remove poses of humans we don't want to track
                         if group_name == '2':
 
+                            if cam == 'azure_kinect1_2':
+                                if distance > 150:
+                                    pass
+                                else:
+                                    data_people[person_index]['pose_keypoints_2d'] = []
+                                    data_people[person_index]['pose_keypoints_3d'] = []
+
                             if cam == 'azure_kinect1_3':
                                 if x_central > 250 and x_central < 1500:
                                     pass
@@ -140,7 +170,7 @@ if __name__ == '__main__':
                                     data_people[person_index]['pose_keypoints_3d'] = []
 
                             if cam == 'azure_kinect2_4':
-                                if x_central > 500 and x_central < 1500 and distance > 200:
+                                if x_central > 500 and x_central < 1500 and distance > 170:
                                     pass
                                 else:
                                     data_people[person_index]['pose_keypoints_2d'] = []
@@ -158,11 +188,56 @@ if __name__ == '__main__':
                                     pass
                                 else:
                                     data_people[person_index]['pose_keypoints_2d'] = []
-                                    data_people[person_index]['pose_keypoints_3d'] = []                               
+                                    data_people[person_index]['pose_keypoints_3d'] = []         
 
-                # print(data_people)
-                # exit()
-                data['people'] = data_people
-                with open(save_name, 'w') as f:
-                    json.dump(data, f)
+                            if cam == 'azure_kinect3_2':
+                                if x_central > 500 and x_central < 1500:
+                                    pass
+                                else:
+                                    data_people[person_index]['pose_keypoints_2d'] = []
+                                    data_people[person_index]['pose_keypoints_3d'] = []                  
 
+                data_people = [person for person in data_people if len(person.get("pose_keypoints_2d", [])) > 0]
+                # print(f"\narchit {data_people}")
+                data_people.sort(key=lambda person: person['pose_keypoints_2d'][8][0])
+                
+                if cam == 'azure_kinect2_5':
+                    if _frame_idx == 10 or _frame_idx == 11:
+                        data_people = data_people[-2:]
+                
+                if cam == 'azure_kinect3_3':
+                    if _frame_idx == 11:
+                        data_people = data_people[:2]
+
+                plt.imshow(color_img)
+                cnt=0
+                for person_index, person in enumerate(data_people):
+                    
+                    if 'pose_keypoints_2d' in person and len(person['pose_keypoints_2d']) > 0:
+                        cnt+=1
+                        keypoints = person['pose_keypoints_2d']
+                        keypoints = np.array(keypoints).reshape(-1, 3)
+
+                        # Generate a random color for each person
+                        color = (random.random(), random.random(), random.random())
+
+                        # Plot the keypoints using the random color
+                        for i in range(keypoints.shape[0]):
+                            if i in imp_body_parts.values():
+                                x, y, _ = keypoints[i]
+                                plt.scatter(x, y, color=color)
+
+                        # Calculate vertical distance between topmost and bottommost keypoints
+                        distance = np.abs(keypoints[1][1] - keypoints[8][1])
+
+                        text = f"{distance:0.3f}"
+                        # torso to ancle distance
+
+                        if text != '0.000':
+                            plt.text(keypoints[1][0], keypoints[1][1], text, color='white', fontsize=12, bbox=dict(facecolor='black', alpha=0.5))
+                        
+                print(f"\nNumber of people in frame {_frame_idx} is {cnt}")
+                
+                save_path = f"{data_dir}/{group_name}/{cam}/bounding_boxes/{_frame_idx}.jpg"
+                plt.savefig(save_path)
+                plt.close()

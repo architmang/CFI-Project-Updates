@@ -57,7 +57,7 @@ body_parts = {
 
 # imp body points
 imp_body_parts = {
-    'Nose': 0,
+    # 'Nose': 0,
     'Neck': 1,
     'RShoulder': 2,
     'RElbow': 3,
@@ -66,15 +66,15 @@ imp_body_parts = {
     'MidHip': 8,
     'RHip': 9,
     'RKnee': 10,
-    'RAnkle': 11,
+    # 'RAnkle': 11,
     'LHip': 12,
     'LKnee': 13,
-    'LAnkle': 14,
+    # 'LAnkle': 14,
 }
 
 # Define the connections between keypoints for visualization
 connections = [
-    ('Neck', 'Nose'),
+    # ('Neck', 'Nose'),
     ('Neck', 'RShoulder'),
     ('Neck', 'LShoulder'),
     ('RShoulder', 'RElbow'),
@@ -84,10 +84,10 @@ connections = [
     ('Neck', 'MidHip'),
     ('MidHip', 'RHip'),
     ('RHip', 'RKnee'),
-    ('RKnee', 'RAnkle'),
+    # ('RKnee', 'RAnkle'),
     ('MidHip', 'LHip'),
     ('LHip', 'LKnee'),
-    ('LKnee', 'LAnkle'),
+    # ('LKnee', 'LAnkle'),
 ]
 
 def get_tranform_mtx(r, t):
@@ -165,7 +165,6 @@ def text_3d(text, pos, direction=None, degree=0.0, font='Arial.ttf', font_size=1
     pcd.transform(trans)
     return pcd
 
-
 # # Create a custom callback function for adding labels
 # def add_labels(vis):
 #     # Clear existing labels
@@ -188,7 +187,6 @@ def text_3d(text, pos, direction=None, degree=0.0, font='Arial.ttf', font_size=1
 #     return False
 
 video_frames = []
-
 data_dir = './AzureKinectRecord_30_05'
 group_list = ['1', '2', '3']  
 cam_list = ['azure_kinect1_2', 'azure_kinect1_3', 'azure_kinect2_4', 'azure_kinect2_5', 'azure_kinect3_3', 'azure_kinect3_2']
@@ -202,7 +200,6 @@ with open('%s/extrinsic_param.pkl' % data_dir, 'rb') as f:
     extr_params = pickle.load(f)
 
 group_name = '2'
-# cam = 'azure_kinect1_2'
 print(f"\n Current group is {group_name} \n")
 
 num_frames = len(glob.glob("%s/%s/azure_kinect1_2/color/color*.jpg" % (data_dir, group_name)))
@@ -225,7 +222,7 @@ for frame_idx in range(num_frames):
     keypoints_3d_this_frame = []
 
     for cam in cam_list:
-
+        cnt=0
         save_name = '%s/%s/%s/pose_json/color%04i_keypoints.json' % (data_dir, group_name, cam, _frame_idx)
         with open(save_name, 'r') as f:
             data = json.load(f)
@@ -240,11 +237,13 @@ for frame_idx in range(num_frames):
                 keypoints_3d = keypoints_3d*np.array([1, -1, -1])
                 keypoints_3d = np.array(keypoints_3d).reshape(-1, 3)
                 keypoints_3d_this_frame.append((person_index, keypoints_3d))
-            
-    dict["_frame_idx"] = keypoints_3d_this_frame
+                cnt+=1
+        print("\n This frame has ", cnt, " people detected in camera ", cam)    
+    
+    dict[_frame_idx] = keypoints_3d_this_frame
+    print("\n frame number is ", _frame_idx, "total number of 3d keypoints are ", len(keypoints_3d_this_frame))
     print( "\n-----------------------------\n")
-    print("\n frame number is ", _frame_idx, "number of 3d keypoints are ", len(keypoints_3d_this_frame))
-    print(keypoints_3d_this_frame)
+    # print(keypoints_3d_this_frame)
 
     # supppose 8 persons are detected in this frame across all cameras
     # form a matrix of dimension (8, 8)
@@ -252,62 +251,68 @@ for frame_idx in range(num_frames):
     # find the minimum distance between the points of two persons
     # the points with minimum distance are the same person
     # keep doing this until 2 persons are left
-
     # Perform person matching
-    while len(keypoints_3d_this_frame) > 2:
+    # while len(keypoints_3d_this_frame) > 2:
 
-        num_persons = len(keypoints_3d_this_frame)
-        distances = np.zeros((num_persons, num_persons))
+    #     num_persons = len(keypoints_3d_this_frame)
+    #     distances = np.zeros((num_persons, num_persons))
 
-        # Calculate pairwise Euclidean distances between keypoints of each person
-        for i in range(num_persons):
-            print("\n")
-            for j in range(num_persons):
-                keypoints_3d_a = keypoints_3d_this_frame[i][1]
-                keypoints_3d_b = keypoints_3d_this_frame[j][1]
-                keypoints_2d_a = keypoints_3d_a[:, :2]  # Extract only x and y coordinates
-                keypoints_2d_b = keypoints_3d_b[:, :2]  # Extract only x and y coordinates
-                dist = distance.cdist(keypoints_2d_a, keypoints_2d_b, metric='euclidean')
-                distances[i, j] = np.min(dist)
-                print(distances[i, j], end=" ")
+    #     # Calculate pairwise Euclidean distances between keypoints of each person
+    #     for i in range(num_persons):
+    #         # print("\n")
+    #         for j in range(num_persons):
+    #             keypoints_3d_a = keypoints_3d_this_frame[i][1]
+    #             keypoints_3d_b = keypoints_3d_this_frame[j][1]
+    #             keypoints_2d_a = keypoints_3d_a[:, :2]  # Extract only x and y coordinates
+    #             keypoints_2d_b = keypoints_3d_b[:, :2]  # Extract only x and y coordinates
+    #             distances[i, j] = avg_joints_distance(keypoints_2d_a, keypoints_2d_b)
+    #             # dist = distance.cdist(keypoints_2d_a, keypoints_2d_b, metric='euclidean')
+    #             # distances[i, j] = np.min(dist)
+    #             # print(distances[i, j], end=" ")
 
-        min_distance = float('inf')
-        min_distance_indices = None
+    #     min_distance = float('inf')
+    #     min_distance_indices = None
 
-        # Iterate over each element in the matrix
-        for i in range(num_persons):
-            for j in range(num_persons):
-                if i != j and distances[i, j] != 0:  # Exclude diagonal elements and check for non-zero values
-                    if distances[i, j] < min_distance:
-                        min_distance = distances[i, j]
-                        min_distance_indices = (i, j)
+    #     # Iterate over each element in the matrix
+    #     for i in range(num_persons):
+    #         for j in range(num_persons):
+    #             if i != j and distances[i, j] != 0:  # Exclude diagonal elements and check for non-zero values
+    #                 if distances[i, j] < min_distance:
+    #                     min_distance = distances[i, j]
+    #                     min_distance_indices = (i, j)
 
-        # Print the pair with the minimum non-zero distance and its indices
-        print("Pair with minimum non-zero distance:", min_distance_indices)
-        print("Minimum non-zero distance:", min_distance)
+    #     # Print the pair with the minimum non-zero distance and its indices
+    #     # print("Pair with minimum non-zero distance:", min_distance_indices)
+    #     # print("Minimum non-zero distance:", min_distance)
 
-        # Find the pair of persons with the minimum distance
-        old_persons = (keypoints_3d_this_frame[min_distance_indices[0]] , keypoints_3d_this_frame[min_distance_indices[1]])
-        new_person = (old_persons[0][0],(keypoints_3d_this_frame[min_distance_indices[0]][1] + keypoints_3d_this_frame[min_distance_indices[1]][1])/2)
+    #     # Find the pair of persons with the minimum distance
+    #     old_persons = (keypoints_3d_this_frame[min_distance_indices[0]] , keypoints_3d_this_frame[min_distance_indices[1]])
+    #     new_person = (old_persons[0][0],(keypoints_3d_this_frame[min_distance_indices[0]][1] + keypoints_3d_this_frame[min_distance_indices[1]][1])/2)
 
-        # Print the pair of persons with the minimum distance
-        print("Persons with minimum distance:", old_persons)
-        print("new Person:", new_person)
+    #     # Print the pair of persons with the minimum distance
+    #     # print("Persons with minimum distance:", old_persons)
+    #     # print("new Person:", new_person)
 
-        # Create a new list without the matched persons
-        keypoints_3d_this_frame = [person for person in keypoints_3d_this_frame if person not in old_persons]
-        keypoints_3d_this_frame.append(new_person)
-        print("Number of persons left:", len(keypoints_3d_this_frame))
-        print(keypoints_3d_this_frame)
+    #     # Create a new list without the matched persons
+    #     keypoints_3d_new = []
+    #     for i in range(num_persons):
+    #         if i not in min_distance_indices:
+    #             keypoints_3d_new.append(keypoints_3d_this_frame[i])
+    #     keypoints_3d_this_frame = keypoints_3d_new
+    #     keypoints_3d_this_frame.append(new_person)
+    #     # print("Number of persons left:", len(keypoints_3d_this_frame))
+    #     # print(keypoints_3d_this_frame)
 
-    # mat = np.zeros((len(keypoints_3d_this_frame), len(keypoints_3d_this_frame)))
-    # for i in range(len(keypoints_3d_this_frame)):
-    #     print("\n")
-    #     for j in range(len(keypoints_3d_this_frame)):
-    #         mat[i][j] = avg_joints_distance(keypoints_3d_this_frame[i][1], keypoints_3d_this_frame[j][1])
-    #         print(mat[i][j], end=" ")
+    # # mat = np.zeros((len(keypoints_3d_this_frame), len(keypoints_3d_this_frame)))
+    # # for i in range(len(keypoints_3d_this_frame)):
+    # #     print("\n")
+    # #     for j in range(len(keypoints_3d_this_frame)):
+    # #         mat[i][j] = avg_joints_distance(keypoints_3d_this_frame[i][1], keypoints_3d_this_frame[j][1])
+    # #         print(mat[i][j], end=" ")
     
-    exit()
+    dict[_frame_idx] = keypoints_3d_this_frame
+
+exit()    
 index_global = 0
 for frame_idx in range(num_frames):
 
@@ -484,8 +489,9 @@ for frame_idx in range(num_frames):
         visualizer.add_geometry(line_set)
         universal_line_set_list.append(line_set)
 
-        for keypoint in keypoints_3d[:15]:
-
+        for index, keypoint in enumerate(keypoints_3d[:15]):
+            if index == 0 or index == 11 or index == 14:
+                continue
             sphere = o3d.geometry.TriangleMesh.create_sphere(radius=10)
             keypoint = np.squeeze(keypoint[:3])  # use np.squeeze to ensure keypoint is a 1D array
             sphere.translate(keypoint)
@@ -557,5 +563,5 @@ for frame_idx in range(num_frames):
 visualizer.destroy_window()
 
 # Save the frames as a video using imageio
-video_path = "object_tracking_3D.mp4"
+video_path = "object_tracking_3D_multi_view.mp4"
 imageio.mimsave(video_path, video_frames, fps=2)
