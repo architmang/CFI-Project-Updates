@@ -25,6 +25,7 @@ from pyquaternion import Quaternion
 import pyautogui
 import imageio
 import scipy.spatial.distance as distance
+from sklearn.cluster import DBSCAN, KMeans
 
 # Define the mapping of body parts to their corresponding indices
 body_parts = {
@@ -112,14 +113,14 @@ def capture_screenshot(file_path):
 
 def avg_joints_distance(keypoints_3d_list, keypoints_3d_list_prev):
     assert keypoints_3d_list.shape == keypoints_3d_list_prev.shape, "Input arrays must have the same shape"
-    
+
     distances = np.linalg.norm(keypoints_3d_list - keypoints_3d_list_prev, axis=1)
     avg_distance = np.mean(distances)
     return avg_distance
 
 def id2color(person_index):
-    # color_list = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]  # red, green, blue correct
-    color_list = [[1, 0, 0], [0, 1, 0], [0, 1, 0]]  # red, green, green incorrect
+    color_list = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]  # red, green, blue correct
+    # color_list = [[1, 0, 0], [0, 1, 0], [0, 1, 0]]  # red, green, green incorrect
 
     if person_index<3:
         return color_list[person_index]
@@ -165,6 +166,19 @@ def text_3d(text, pos, direction=None, degree=0.0, font='Arial.ttf', font_size=1
     trans[0:3, 3] = np.asarray(pos)
     pcd.transform(trans)
     return pcd
+
+def combine_keypoints(keypoints_1, keypoints_2):
+    # check if the difference in coordinates of the keypoints is less than 10
+    # if yes, then combine the keypoints
+    # else, return false
+    keypoints_1 = np.array(keypoints_1)
+    keypoints_2 = np.array(keypoints_2)
+    diff = np.abs(keypoints_1 - keypoints_2)
+    # count how many occurences of difference greater than 50
+    count = np.sum(diff > 37)
+    if count > 50:
+        return False
+    return True
 
 # # Create a custom callback function for adding labels
 # def add_labels(vis):
@@ -237,7 +251,7 @@ for frame_idx in range(num_frames):
                 keypoints_3d = [keypoint[0] for keypoint in keypoints_3d]
                 keypoints_3d = keypoints_3d*np.array([1, -1, -1])
                 keypoints_3d = np.array(keypoints_3d).reshape(-1, 3)
-                keypoints_3d_this_frame.append((person_index, keypoints_3d))
+                keypoints_3d_this_frame.append((person_index, keypoints_3d, cam))
                 cnt+=1
         print("\n This frame has ", cnt, " people detected in camera ", cam)    
     
@@ -246,76 +260,308 @@ for frame_idx in range(num_frames):
     print( "\n-----------------------------\n")
     # print(keypoints_3d_this_frame)
 
-    # -------------------------------------------------------------------OLD APPROACH----------------------------------------------------------------------------------
-    # supppose 8 persons are detected in this frame across all cameras
-    # form a matrix of dimension (8, 8)
-    # fill the matrix with the euclidean distance between the points of two persons
-    # find the minimum distance between the points of two persons
-    # the points with minimum distance are the same person
-    # keep doing this until 2 persons are left
-    # Perform person matching
+    # # -------------------------------------------------------------------OLD APPROACH----------------------------------------------------------------------------------
+    # # supppose 8 persons are detected in this frame across all cameras
+    # # form a matrix of dimension (8, 8)
+    # # fill the matrix with the euclidean distance between the points of two persons
+    # # find the minimum distance between the points of two persons
+    # # the points with minimum distance are the same person
+    # # keep doing this until 2 persons are left
+    # # Perform person matching
 
-    while len(keypoints_3d_this_frame) > 2:
+    # while len(keypoints_3d_this_frame) > 2:
 
-        num_persons = len(keypoints_3d_this_frame)
-        distances = np.zeros((num_persons, num_persons))
+    #     num_persons = len(keypoints_3d_this_frame)
+    #     distances = np.zeros((num_persons, num_persons))
 
-        # Calculate pairwise Euclidean distances between keypoints of each person
-        for i in range(num_persons):
-            # print("\n")
-            for j in range(num_persons):
-                keypoints_3d_a = keypoints_3d_this_frame[i][1]
-                keypoints_3d_b = keypoints_3d_this_frame[j][1]
-                keypoints_2d_a = keypoints_3d_a[:, :2]  # Extract only x and y coordinates
-                keypoints_2d_b = keypoints_3d_b[:, :2]  # Extract only x and y coordinates
-                distances[i, j] = avg_joints_distance(keypoints_2d_a, keypoints_2d_b)
-                # dist = distance.cdist(keypoints_2d_a, keypoints_2d_b, metric='euclidean')
-                # distances[i, j] = np.min(dist)
-                # print(distances[i, j], end=" ")
+    #     # Calculate pairwise Euclidean distances between keypoints of each person
+    #     for i in range(num_persons):
+    #         # print("\n")
+    #         for j in range(num_persons):
+    #             keypoints_3d_a = keypoints_3d_this_frame[i][1]
+    #             keypoints_3d_b = keypoints_3d_this_frame[j][1]
+    #             keypoints_2d_a = keypoints_3d_a[:, :2]  # Extract only x and y coordinates
+    #             keypoints_2d_b = keypoints_3d_b[:, :2]  # Extract only x and y coordinates
+    #             distances[i, j] = avg_joints_distance(keypoints_2d_a, keypoints_2d_b)
+    #             # dist = distance.cdist(keypoints_2d_a, keypoints_2d_b, metric='euclidean')
+    #             # distances[i, j] = np.min(dist)
+    #             # print(distances[i, j], end=" ")
 
-        min_distance = float('inf')
-        min_distance_indices = None
+    #     min_distance = float('inf')
+    #     min_distance_indices = None
 
-        # Iterate over each element in the matrix
-        for i in range(num_persons):
-            for j in range(num_persons):
-                if i != j and distances[i, j] != 0:  # Exclude diagonal elements and check for non-zero values
-                    if distances[i, j] < min_distance:
-                        min_distance = distances[i, j]
-                        min_distance_indices = (i, j)
+    #     # Iterate over each element in the matrix
+    #     for i in range(num_persons):
+    #         for j in range(num_persons):
+    #             if i != j and distances[i, j] != 0:  # Exclude diagonal elements and check for non-zero values
+    #                 if distances[i, j] < min_distance:
+    #                     min_distance = distances[i, j]
+    #                     min_distance_indices = (i, j)
 
-        # Print the pair with the minimum non-zero distance and its indices
-        # print("Pair with minimum non-zero distance:", min_distance_indices)
-        # print("Minimum non-zero distance:", min_distance)
+    #     # Print the pair with the minimum non-zero distance and its indices
+    #     # print("Pair with minimum non-zero distance:", min_distance_indices)
+    #     # print("Minimum non-zero distance:", min_distance)
 
-        # Find the pair of persons with the minimum distance
-        old_persons = (keypoints_3d_this_frame[min_distance_indices[0]] , keypoints_3d_this_frame[min_distance_indices[1]])
-        new_person = (old_persons[0][0],(keypoints_3d_this_frame[min_distance_indices[0]][1] + keypoints_3d_this_frame[min_distance_indices[1]][1])/2)
+    #     # Find the pair of persons with the minimum distance
+    #     old_persons = (keypoints_3d_this_frame[min_distance_indices[0]] , keypoints_3d_this_frame[min_distance_indices[1]])
+    #     new_person = (old_persons[0][0],(keypoints_3d_this_frame[min_distance_indices[0]][1] + keypoints_3d_this_frame[min_distance_indices[1]][1])/2)
 
-        # Print the pair of persons with the minimum distance
-        # print("Persons with minimum distance:", old_persons)
-        # print("new Person:", new_person)
+    #     # Print the pair of persons with the minimum distance
+    #     # print("Persons with minimum distance:", old_persons)
+    #     # print("new Person:", new_person)
 
-        # Create a new list without the matched persons
-        keypoints_3d_new = []
-        for i in range(num_persons):
-            if i not in min_distance_indices:
-                keypoints_3d_new.append(keypoints_3d_this_frame[i])
-        keypoints_3d_this_frame = keypoints_3d_new
-        keypoints_3d_this_frame.append(new_person)
-        # print("Number of persons left:", len(keypoints_3d_this_frame))
-        # print(keypoints_3d_this_frame)
+    #     # Create a new list without the matched persons
+    #     keypoints_3d_new = []
+    #     for i in range(num_persons):
+    #         if i not in min_distance_indices:
+    #             keypoints_3d_new.append(keypoints_3d_this_frame[i])
+    #     keypoints_3d_this_frame = keypoints_3d_new
+    #     keypoints_3d_this_frame.append(new_person)
+    #     # print("Number of persons left:", len(keypoints_3d_this_frame))
+    #     # print(keypoints_3d_this_frame)
 
-    # mat = np.zeros((len(keypoints_3d_this_frame), len(keypoints_3d_this_frame)))
-    # for i in range(len(keypoints_3d_this_frame)):
-    #     print("\n")
-    #     for j in range(len(keypoints_3d_this_frame)):
-    #         mat[i][j] = avg_joints_distance(keypoints_3d_this_frame[i][1], keypoints_3d_this_frame[j][1])
-    #         print(mat[i][j], end=" ")
+    # # mat = np.zeros((len(keypoints_3d_this_frame), len(keypoints_3d_this_frame)))
+    # # for i in range(len(keypoints_3d_this_frame)):
+    # #     print("\n")
+    # #     for j in range(len(keypoints_3d_this_frame)):
+    # #         mat[i][j] = avg_joints_distance(keypoints_3d_this_frame[i][1], keypoints_3d_this_frame[j][1])
+    # #         print(mat[i][j], end=" ")
     
     # ------------------------------------------------------------------NEW APPROACH----------------------------------------------------------------------------------
+    # cam1, cam2, cam3, cam4, cam5, cam6
+    # we need to combine across 6 cameras
+    # first find number of people in each camera
 
-    dict[_frame_idx] = keypoints_3d_this_frame
+    # cam_persons = {}
+    # for i in range(len(keypoints_3d_this_frame)):
+    #     if keypoints_3d_this_frame[i][2] not in cam_persons:
+    #         cam_persons[keypoints_3d_this_frame[i][2]] = [keypoints_3d_this_frame[i][1]]
+    #     else:
+    #         cam_persons[keypoints_3d_this_frame[i][2]].append(keypoints_3d_this_frame[i][1])
+    
+    # # print(cam_persons)
+
+    # combined_keypoints = []
+    # num_cameras = len(cam_persons.keys())
+
+    # # Combine keypoints across cameras
+    # for ind in range(num_cameras):
+
+    #     current_cam = cam_list[ind]
+    #     keypoints_cam = cam_persons[current_cam]
+    #     # keypoints_cam is a list of person keypoints
+
+    #     if ind==0:
+    #         combined_keypoints.extend(keypoints_cam)
+    #         continue
+
+    #     # we compare the current camera with combined keypoints of previous cameras
+    #     distances = np.zeros((len(keypoints_cam), len(combined_keypoints)))
+        
+    #     # Find the pair of persons with the minimum average joint distance
+    #     for i in range(len(keypoints_cam)):
+    #         for j in range(len(combined_keypoints)):
+    #             person1 = keypoints_cam[i]
+    #             person2 = combined_keypoints[j]
+    #             # print(person1.shape, person2.shape)
+    #             # print(person1.dtype, person2.dtype)
+    #             person1 = np.array(person1)
+    #             person2 = np.array(person2)
+    #             keypoints_2d_a = person1[:, :2]  # Extract only x and y coordinates
+    #             keypoints_2d_b = person2[:, :2]  # Extract only x and y coordinates
+    #             distances[i][j] = avg_joints_distance(keypoints_2d_a, keypoints_2d_b)
+
+    #     # print the distances matrix
+    #     print("\n-----------------------------\n")
+    #     print("Matrix of distances: ")
+    #     print(distances)
+    #     print("\n-----------------------------\n")
+
+    #     if len(combined_keypoints) == 1 and len(keypoints_cam) == 1:
+    #         # Find the pair of persons with the minimum average joint distance
+    #         min_avg_distance = float('inf')
+    #         best_pair = None
+    #         second_best_pair = None
+            
+    #         for i in range(len(keypoints_cam)):
+    #             for j in range(len(combined_keypoints)):
+    #                 avg_distance = distances[i, j]
+    #                 if avg_distance < min_avg_distance:
+    #                     min_avg_distance = avg_distance
+    #                     best_pair = (i, j)
+
+    #         if combine_keypoints(keypoints_cam[best_pair[0]], combined_keypoints[best_pair[1]]) == True:
+    #             new_person = (keypoints_cam[best_pair[0]] + combined_keypoints[best_pair[1]])/2
+    #             print("Best pair:", best_pair)
+    #             print("New keypoints_cam person:", keypoints_cam[best_pair[0]])
+    #             print("we are combining leessgo")
+    #             print("Combined keypoints:", combined_keypoints)
+    #             print("New person:", new_person)
+    #             # combined_keypoints.remove(combined_keypoints[best_pair[1]])
+    #             # combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if (combined_keypoint != combined_keypoints[best_pair[1]])]
+    #             combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if not np.array_equal(combined_keypoint, combined_keypoints[best_pair[1]])]
+    #             combined_keypoints.append(new_person)
+    #             print("Combined keypoints:", combined_keypoints)
+    #             continue
+
+    #         else:
+    #             new_person = keypoints_cam[best_pair[0]] 
+    #             print("Best pair:", best_pair)
+    #             print("New keypoints_cam person:", keypoints_cam[best_pair[0]])
+    #             print("we are not combining")
+    #             print("Combined keypoints:", combined_keypoints)
+    #             print("New person:", new_person)
+    #             # combined_keypoints.remove(combined_keypoints[best_pair[1]])
+    #             # combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if (combined_keypoint != combined_keypoints[best_pair[1]])]
+    #             combined_keypoints.append(new_person)
+    #             print("Combined keypoints:", combined_keypoints)
+    #             continue                
+
+    #     if len(combined_keypoints) == 1 and len(keypoints_cam) == 2:
+            
+    #         # Find the pair of persons with the minimum average joint distance
+    #         min_avg_distance = float('inf')
+    #         best_pair = None
+    #         second_best_pair = None
+
+    #         for i in range(len(keypoints_cam)):
+    #             for j in range(len(combined_keypoints)):
+    #                 avg_distance = distances[i, j]
+    #                 if avg_distance < min_avg_distance:
+    #                     min_avg_distance = avg_distance
+    #                     best_pair = (i, j)
+
+    #         new_person = (keypoints_cam[best_pair[0]] + combined_keypoints[best_pair[1]])/2
+    #         print("Best pair:", best_pair)
+    #         print("New person:", new_person)
+    #         print("Combined keypoints:", combined_keypoints)
+            
+    #         # combined_keypoints.remove(combined_keypoints[best_pair[1]])
+    #         combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if not np.array_equal(combined_keypoint, combined_keypoints[best_pair[1]])]
+    #         # combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if (combined_keypoint != combined_keypoints[best_pair[1]])]
+    #         combined_keypoints.append(new_person)
+            
+    #         if best_pair[0] == 0:
+    #             combined_keypoints.append(keypoints_cam[1])
+    #         else:
+    #             combined_keypoints.append(keypoints_cam[0])
+            
+    #         print("Combined keypoints:", combined_keypoints)
+    #         continue
+
+    #     if len(combined_keypoints) == 2 and len(keypoints_cam) == 1:
+        
+    #         # Find the pair of persons with the minimum average joint distance
+    #         min_avg_distance = float('inf')
+    #         best_pair = None
+    #         second_best_pair = None
+
+    #         for i in range(len(keypoints_cam)):
+    #             for j in range(len(combined_keypoints)):
+    #                 avg_distance = distances[i, j]
+    #                 if avg_distance < min_avg_distance:
+    #                     min_avg_distance = avg_distance
+    #                     best_pair = (i, j)
+
+    #         new_person = (keypoints_cam[best_pair[0]] + combined_keypoints[best_pair[1]])/2
+    #         print("Best pair:", best_pair)
+    #         print("New person:", new_person)
+    #         print("Combined keypoints:", combined_keypoints)
+            
+    #         # combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if (combined_keypoint != combined_keypoints[best_pair[1]])]
+    #         combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if not np.array_equal(combined_keypoint, combined_keypoints[best_pair[1]])]
+    #         # combined_keypoints.remove(combined_keypoints[best_pair[1]])
+    #         combined_keypoints.append(new_person)
+
+    #         print("Combined keypoints:", combined_keypoints)
+    #         continue
+            
+    #     if len(combined_keypoints) == 2 and len(keypoints_cam) == 2:
+            
+    #         # Find the pair of persons with the minimum average joint distance
+    #         min_avg_distance = float('inf')
+    #         second_min_avg_distance = float('inf')
+    #         best_pair = None
+    #         second_best_pair = None
+            
+    #         print("--00-0-00-0-00-0-0-0-0-0-0-0-0-0-0-0-0-0-00000-0-0--0-0")
+    #         for i in range(len(keypoints_cam)):
+    #             print("\n")
+    #             for j in range(len(combined_keypoints)):
+    #                 avg_distance = distances[i, j]
+    #                 print(avg_distance, end=" ")
+    #                 if avg_distance < min_avg_distance:
+    #                     second_best_pair = best_pair
+    #                     min_avg_distance = avg_distance
+    #                     best_pair = (i, j)
+    #                 elif avg_distance < second_min_avg_distance and avg_distance != min_avg_distance:
+    #                     second_best_pair = (i, j)
+    #                     second_min_avg_distance = avg_distance
+
+    #         print("\nBest pair:", best_pair)
+    #         print("Second best pair:", second_best_pair)
+
+    #         new_person1 = (keypoints_cam[best_pair[0]] + combined_keypoints[best_pair[1]])/2
+    #         new_person2 = (keypoints_cam[second_best_pair[0]] + combined_keypoints[second_best_pair[1]])/2
+
+    #         print("Best pair:", best_pair)
+    #         print("New person:", new_person)
+    #         print("Combined keypoints:", combined_keypoints)
+            
+    #         # combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if (combined_keypoint != combined_keypoints[best_pair[1]] and combined_keypoint != combined_keypoints[second_best_pair[1]])]
+    #         combined_keypoints = [combined_keypoint for combined_keypoint in combined_keypoints if not np.all(combined_keypoint == combined_keypoints[best_pair[1]]) and not np.all(combined_keypoint == combined_keypoints[second_best_pair[1]])]
+    #         # combined_keypoints.remove(combined_keypoints[best_pair[1]])
+    #         # combined_keypoints.remove(combined_keypoints[second_best_pair[1]])
+    #         combined_keypoints.append(new_person1)
+    #         combined_keypoints.append(new_person2)
+
+    #         print("Combined keypoints:", combined_keypoints)
+    #         continue
+    # ------------------------------------------------------------------LATEST APPROACH----------------------------------------------------------------------------------
+    # we do clustering
+    # we have 6 cameras
+    keypoints_3d_this_frame = dict[_frame_idx]
+    num_persons = len(keypoints_3d_this_frame)
+    distances = np.zeros((num_persons, num_persons))
+
+    # Find the pair of persons with the minimum average joint distance
+    for i in range(num_persons):
+        for j in range(num_persons):
+            person1 = keypoints_3d_this_frame[i][1]
+            person2 = keypoints_3d_this_frame[j][1]
+            # print(person1)
+            person1 = np.array(person1)
+            person2 = np.array(person2)
+            keypoints_2d_a = person1[:, :2]  # Extract only x and y coordinates
+            keypoints_2d_b = person2[:, :2]  # Extract only x and y coordinates
+            distances[i][j] = avg_joints_distance(keypoints_2d_a, keypoints_2d_b)
+
+    # Perform clustering using DBSCAN
+    min_samples = int(num_persons/2 - 1)  # Minimum number of samples in a cluster
+    num_clusters = 2
+    kmeans = KMeans(n_clusters=num_clusters, random_state=0, n_init=10)
+    labels = kmeans.fit_predict(distances)
+
+    sub0 = []
+    sub1 = []
+
+    # Print the clustering results
+    for person_idx, label in enumerate(labels):
+        print("Person", person_idx, "belongs to cluster", label)
+        print("Person", person_idx, "has keypoints", keypoints_3d_this_frame[person_idx])
+        if label == 0:
+            sub0.append(keypoints_3d_this_frame[person_idx][1])
+        else:
+            sub1.append(keypoints_3d_this_frame[person_idx][1])
+
+    subject0 = np.array(sub0).mean(axis=0)
+    subject1 = np.array(sub1).mean(axis=0)
+
+    print("Subject 0:", subject0)
+    print("Subject 1:", subject1)
+
+    dict[_frame_idx] = [(0, subject0), (1, subject1)]
+    print("--------------------------------------------------------------------------------")
 
 # exit()    
 index_global = 0
@@ -374,8 +620,23 @@ for frame_idx in range(num_frames):
                     keypoints_3d_list[min_distance_idx][0] = keypoints_3d_list_prev[j][0]
                     keypoints_3d_list[min_distance_idx] = tuple(keypoints_3d_list[min_distance_idx])
                     assigned_ids.append(min_distance_idx)
-                    assigned_old_indices.add(min_distance_idx)
                     print("Person", min_distance_idx, "is the same as new Person", j)
+
+                    if min_distance_idx==0:
+                        other_ind = 1
+                    else:
+                        other_ind = 0
+
+                    if j==0:
+                        other_j = 1
+                    else:
+                        other_j = 0
+                        
+                    keypoints_3d_list[other_ind] = list(keypoints_3d_list[other_ind])
+                    keypoints_3d_list[other_ind][0] = keypoints_3d_list_prev[other_j][0]
+                    keypoints_3d_list[other_ind] = tuple(keypoints_3d_list[other_ind])
+                    assigned_ids.append(other_ind)
+                    print("Person", other_ind, "is the same as new Person", other_j)
 
             for i in range(len(keypoints_3d_list)):
                 
@@ -391,7 +652,7 @@ for frame_idx in range(num_frames):
             print("Assigned IDs:", assigned_ids)
 
         if len(keypoints_3d_list) > len(keypoints_3d_list_prev):
-
+            print("EMERGENCY")
             # Assign IDs to new persons based on minimum distance
             assigned_ids = []
             assigned_old_indices = set()  # Keep track of old person indices that have been assigned to new persons
@@ -423,6 +684,7 @@ for frame_idx in range(num_frames):
             print("New person count:", len(keypoints_3d_list) - len(keypoints_3d_list_prev))
 
         if len(keypoints_3d_list) < len(keypoints_3d_list_prev):
+            print("EMERGENCY")
 
             # Assign IDs to new persons based on minimum distance
             assigned_ids = []
@@ -450,7 +712,15 @@ for frame_idx in range(num_frames):
             print("Assigned IDs:", assigned_ids)
             print("Person left count:", len(keypoints_3d_list_prev) - len(keypoints_3d_list))
 
+        dict[_frame_idx-1] = keypoints_3d_list_prev
+        dict[_frame_idx] = keypoints_3d_list
+
     print("\n-----------------------------\n")
+
+# save the dictionary in a file
+with open('dict.pickle', 'wb') as handle:
+    pickle.dump(dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
+exit()
 
 visualizer = o3d.visualization.Visualizer()
 visualizer.create_window(width=1920, height=1080)
@@ -568,5 +838,5 @@ for frame_idx in range(num_frames):
 visualizer.destroy_window()
 
 # Save the frames as a video using imageio
-video_path = "object_tracking_3D_multi_view_2.mp4"
+video_path = "object_tracking_3D_multi_view_3.mp4"
 imageio.mimsave(video_path, video_frames, fps=2)
