@@ -104,7 +104,12 @@ def calculate_average_distance(point_cloud, human_points):
     human_points = np.array(human_points)
     
     distances = np.linalg.norm(point_cloud[:, np.newaxis, :] - human_points, axis=2)
-    average_distances = np.mean(distances, axis=1)
+    print("------------------")
+    print(distances.shape)
+    print(distances)
+    print("------------------")
+
+    average_distances = np.min(distances, axis=1)
     
     return average_distances
 
@@ -161,7 +166,7 @@ frames_folder_human0 = f'{data_dir}/{group_name}/point_cloud_frames_human0'
 frames_folder_human1 = f'{data_dir}/{group_name}/point_cloud_frames_human1'
 
 for frame_idx in range(num_frames):
-    
+
     _frame_idx = start_index + frame_idx
 
     # b = next(item[1] for item in x if item[0] == 1)
@@ -178,18 +183,47 @@ for frame_idx in range(num_frames):
 
     # Flip the point cloud along the Z-axis
     point_cloud.points = o3d.utility.Vector3dVector(np.asarray(point_cloud.points) * np.array([1, -1, -1]))
+    all_points = np.asarray(point_cloud.points)
+    # ------------------------------------------------------------------------OLD-------------------------------------------------------------------------------
+    # Calculate the average distance of each point to the human and assign a label
 
-    distance_human0 = calculate_average_distance(point_cloud, human0)
-    distance_human1 = calculate_average_distance(point_cloud, human1)
+    # distance_human0 = calculate_average_distance(point_cloud, human0)
+    # distance_human1 = calculate_average_distance(point_cloud, human1)
 
-    labels = np.zeros(len(distance_human0))
-    labels[distance_human0 < distance_human1] = 1
+    # labels = np.zeros(len(distance_human0))
+    # labels[distance_human0 > distance_human1] = 1
+    # print("--------labels----------")
+    # print(labels)
+    # values, counts = np.unique(labels, return_counts=True)
+    # print(values, counts)
+    # print("--------labels----------")
 
-    # keep only points which have label 0
-    points_human0 = o3d.utility.Vector3dVector(np.asarray(point_cloud.points)[labels == 0])
-    points_human1 = o3d.utility.Vector3dVector(np.asarray(point_cloud.points)[labels == 1])
+    # # keep only points which have label 0
+    # points_human0 = o3d.utility.Vector3dVector(np.asarray(point_cloud.points)[labels == 0])
+    # points_human1 = o3d.utility.Vector3dVector(np.asarray(point_cloud.points)[labels == 1])
 
-    point_cloud.points = points_human0 # remove LATER
+    # ------------------------------------------------------------------------NEW--------------------------------------------------------------------------------
+    
+    # Set the DBSCAN parameters
+    eps = 0.1  # The maximum distance between two samples to be considered as part of the same cluster
+    min_samples = 5  # The minimum number of points in a neighborhood to form a core point
+
+    # Create and fit the DBSCAN model
+    dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+    labels = dbscan.fit_predict(all_points)
+
+    print(all_points.shape)
+    print("labels")
+    print(labels.shape)
+    values, counts = np.unique(labels, return_counts=True)
+    print(values, counts)
+    # exit()
+
+    # Extract the segmented points of each human
+    human0_points = all_points[labels == 0]
+    human1_points = all_points[labels == 1]
+
+    point_cloud.points = human1_points # remove LATER
 
     # Customize the visualization settings
     visualizer.add_geometry(point_cloud)
@@ -201,12 +235,17 @@ for frame_idx in range(num_frames):
     visualizer.update_renderer()
 
     # Save the current frame as an image
-    # capture_screenshot("%s/%s/point_cloud_frames_group/frame_%04d.png" % (data_dir, group_name, frame_idx))
-    # image_path = os.path.join(frames_folder, f'frame_{frame_idx:04d}.png')
+    capture_screenshot("%s/%s/point_cloud_frames_human0/frame_%04d.png" % (data_dir, group_name, frame_idx))
+    image_path = os.path.join(frames_folder_human0, f'frame_{frame_idx:04d}.png')
     # visualizer.capture_screen_image(image_path)
+    video_frames.append(imageio.imread(image_path))
 
     # Wait for the specified duration
     time.sleep(duration_secs)
 
     # Clear the previous point cloud from the visualization
     visualizer.remove_geometry(point_cloud)
+
+# Save the frames as a video using imageio
+video_path = "%s/%s/point_cloud_human_1_DBSCAN.mp4"  % (data_dir, group_name)
+imageio.mimsave(video_path, video_frames, fps=2)
